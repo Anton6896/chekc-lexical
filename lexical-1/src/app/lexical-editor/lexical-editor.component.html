@@ -79,6 +79,29 @@
 
     <div class="toolbar-group">
       <select
+        class="font-family-select"
+        [value]="currentFontFamily"
+        (change)="onFontFamilyChange($event)"
+        title="Font Family">
+        <option value="system-ui, -apple-system, sans-serif">System Default</option>
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="'Helvetica Neue', Helvetica, sans-serif">Helvetica</option>
+        <option value="'Times New Roman', Times, serif">Times New Roman</option>
+        <option value="Georgia, serif">Georgia</option>
+        <option value="'Courier New', Courier, monospace">Courier New</option>
+        <option value="Monaco, 'Lucida Console', monospace">Monaco</option>
+        <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+        <option value="Impact, fantasy">Impact</option>
+        <option value="Verdana, sans-serif">Verdana</option>
+        <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+        <option value="'Brush Script MT', cursive">Brush Script</option>
+      </select>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <select
         class="font-size-select"
         [value]="currentFontSize"
         (change)="onFontSizeChange($event)"
