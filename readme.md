@@ -4,6 +4,7 @@
 
 - <https://lexical.dev/docs/intro>
 - change to custom font
+- tiptap
 
 ## test server
 
