@@ -107,6 +107,27 @@
     <div class="toolbar-divider"></div>
 
     <div class="toolbar-group">
+      <button
+        (mousedown)="$event.preventDefault()"
+        (click)="setTextDirection('ltr')"
+        [class.active]="isLtr"
+        title="Left-to-Right (LTR)"
+        class="toolbar-button">
+        LTR
+      </button>
+      <button
+        (mousedown)="$event.preventDefault()"
+        (click)="setTextDirection('rtl')"
+        [class.active]="isRtl"
+        title="Right-to-Left (RTL)"
+        class="toolbar-button">
+        RTL
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
       <select
         class="font-family-select"
         [value]="currentFontFamily"

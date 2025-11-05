@@ -293,6 +293,42 @@
   }
 }
 
+// Text direction support - LTR and RTL
+.editor-container {
+  [dir="ltr"] {
+    direction: ltr !important;
+  }
+
+  [dir="rtl"] {
+    direction: rtl !important;
+    text-align: right;
+  }
+}
+
+// Ensure paragraphs and headings respect direction
+.editor-container {
+  p, h1, h2, h3, h4, h5, h6 {
+    &[dir="ltr"] {
+      direction: ltr;
+    }
+
+    &[dir="rtl"] {
+      direction: rtl;
+    }
+  }
+}
+
+// Lexical theme classes for direction
+.ltr {
+  direction: ltr !important;
+  text-align: left;
+}
+
+.rtl {
+  direction: rtl !important;
+  text-align: right;
+}
+
 .html-output {
   max-width: 800px;
   margin: 2rem auto;

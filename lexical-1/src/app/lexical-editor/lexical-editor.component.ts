@@ -24,6 +24,7 @@ import { applyTextColor, rgbToHex } from './plugins/color-plugin';
 import { applyFontSize } from './plugins/font-size-plugin';
 import { applyFontFamily } from './plugins/font-family-plugin';
 import { applyTextAlignment, getCurrentTextAlignment, TextAlignment } from './plugins/text-position-plugin';
+import { applyTextDirection, getCurrentTextDirection, TextDirection } from './plugins/text-direction-plugin';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -50,6 +51,9 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   isAlignLeft: boolean = false;
   isAlignCenter: boolean = false;
   isAlignRight: boolean = false;
+  currentTextDirection: TextDirection = 'ltr';
+  isLtr: boolean = true;
+  isRtl: boolean = false;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -144,6 +148,11 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.isAlignLeft = this.currentTextAlignment === 'left';
           this.isAlignCenter = this.currentTextAlignment === 'center';
           this.isAlignRight = this.currentTextAlignment === 'right';
+
+          // Get current text direction
+          this.currentTextDirection = getCurrentTextDirection(selection);
+          this.isLtr = this.currentTextDirection === 'ltr';
+          this.isRtl = this.currentTextDirection === 'rtl';
         } else {
           this.isBold = false;
           this.isItalic = false;
@@ -160,6 +169,9 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.isAlignLeft = false;
           this.isAlignCenter = false;
           this.isAlignRight = false;
+          this.currentTextDirection = 'ltr';
+          this.isLtr = true;
+          this.isRtl = false;
         }
       });
       this.log(editorState);
@@ -237,6 +249,12 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   setTextAlignment(alignment: TextAlignment): void {
     if (this.editor) {
       applyTextAlignment(this.editor, alignment);
+    }
+  }
+
+  setTextDirection(direction: TextDirection): void {
+    if (this.editor) {
+      applyTextDirection(this.editor, direction);
     }
   }
 
