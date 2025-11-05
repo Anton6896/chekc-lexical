@@ -121,6 +121,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   // Toolbar actions
   formatText(format: 'bold' | 'italic' | 'underline' | 'strikethrough' | 'code'): void {
     if (this.editor) {
+      this.editor.focus();
       this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
     }
   }

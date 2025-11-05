@@ -5,6 +5,7 @@
   <div class="toolbar">
     <div class="toolbar-group">
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatText('bold')"
         [class.active]="isBold"
         title="Bold (Ctrl+B)"
@@ -12,6 +13,7 @@
         <strong>B</strong>
       </button>
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatText('italic')"
         [class.active]="isItalic"
         title="Italic (Ctrl+I)"
@@ -19,6 +21,7 @@
         <em>I</em>
       </button>
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatText('underline')"
         [class.active]="isUnderline"
         title="Underline (Ctrl+U)"
@@ -26,6 +29,7 @@
         <u>U</u>
       </button>
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatText('strikethrough')"
         [class.active]="isStrikethrough"
         title="Strikethrough"
@@ -33,6 +37,7 @@
         <s>S</s>
       </button>
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatText('code')"
         title="Code"
         class="toolbar-button">
