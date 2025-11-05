@@ -14,23 +14,18 @@ export type TextDirection = 'ltr' | 'rtl';
  * @param direction - The text direction to apply ('ltr' or 'rtl')
  */
 export function applyTextDirection(editor: LexicalEditor, direction: TextDirection): void {
-    console.log('applyTextDirection called with:', direction);
-
     editor.update(() => {
         const selection = $getSelection();
-        console.log('Selection:', selection);
 
         if ($isRangeSelection(selection)) {
             // Get all nodes in selection
             let nodes = selection.getNodes();
-            console.log('Initial nodes:', nodes.length);
 
             // If no nodes, get the anchor node (where cursor is)
             if (nodes.length === 0) {
                 const anchorNode = selection.anchor.getNode();
                 if (anchorNode) {
                     nodes = [anchorNode];
-                    console.log('Using anchor node');
                 }
             }
 
@@ -38,8 +33,6 @@ export function applyTextDirection(editor: LexicalEditor, direction: TextDirecti
             const processedParents = new Set<string>();
 
             nodes.forEach((node) => {
-                console.log('Processing node:', node.getType());
-
                 // Get the parent element node (paragraph, heading, etc.)
                 let parent: LexicalNode | null = node;
 
@@ -54,8 +47,6 @@ export function applyTextDirection(editor: LexicalEditor, direction: TextDirecti
                     parent = nextParent;
                 }
 
-                console.log('Found parent:', parent?.getType());
-
                 if (parent && $isElementNode(parent)) {
                     const parentKey = parent.getKey();
 
@@ -63,13 +54,8 @@ export function applyTextDirection(editor: LexicalEditor, direction: TextDirecti
                     if (!processedParents.has(parentKey)) {
                         processedParents.add(parentKey);
 
-                        console.log('Setting direction to:', direction);
-                        console.log('Current direction before:', parent.getDirection());
-
                         // Set the direction on the element
                         parent.setDirection(direction);
-
-                        console.log('Direction after setting:', parent.getDirection());
                     }
                 }
             });
