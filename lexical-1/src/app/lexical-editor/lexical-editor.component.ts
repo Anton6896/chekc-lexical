@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   createEditor,
@@ -24,7 +24,8 @@ import { CodeNode, CodeHighlightNode } from '@lexical/code';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './lexical-editor.component.html',
-  styleUrl: './lexical-editor.component.scss'
+  styleUrls: ['./lexical-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   htmlRepresentation: string = '';
