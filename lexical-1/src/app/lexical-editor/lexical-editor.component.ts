@@ -34,6 +34,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   isItalic: boolean = false;
   isUnderline: boolean = false;
   isStrikethrough: boolean = false;
+  activeHeading: 'h1' | 'h2' | 'h3' | null = null;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -99,11 +100,21 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
     this.editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
         const selection = $getSelection();
+        this.activeHeading = null;
         if ($isRangeSelection(selection)) {
           this.isBold = selection.hasFormat('bold');
           this.isItalic = selection.hasFormat('italic');
           this.isUnderline = selection.hasFormat('underline');
           this.isStrikethrough = selection.hasFormat('strikethrough');
+
+          const anchorNode = selection.anchor.getNode();
+          const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
+          if ($isHeadingNode(element)) {
+            const tag = element.getTag();
+            this.activeHeading = tag === 'h1' || tag === 'h2' || tag === 'h3' ? tag : null;
+          } else {
+            this.activeHeading = null;
+          }
         }
       });
       this.log(editorState);

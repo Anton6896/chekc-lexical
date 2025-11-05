@@ -50,18 +50,21 @@
     <div class="toolbar-group">
       <button
         (click)="formatHeading('h1')"
+        [class.active]="activeHeading === 'h1'"
         title="Heading 1"
         class="toolbar-button">
         H1
       </button>
       <button
         (click)="formatHeading('h2')"
+        [class.active]="activeHeading === 'h2'"
         title="Heading 2"
         class="toolbar-button">
         H2
       </button>
       <button
         (click)="formatHeading('h3')"
+        [class.active]="activeHeading === 'h3'"
         title="Heading 3"
         class="toolbar-button">
         H3
