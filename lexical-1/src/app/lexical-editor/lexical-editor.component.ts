@@ -10,9 +10,7 @@ import {
   $getSelection,
   $isRangeSelection,
   TextFormatType,
-  $isTextNode,
-  $isElementNode,
-  ElementNode
+  $isTextNode
 } from 'lexical';
 import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
 import { registerRichText } from '@lexical/rich-text';
@@ -27,6 +25,7 @@ import { applyFontSize } from './plugins/font-size-plugin';
 import { applyFontFamily } from './plugins/font-family-plugin';
 import { applyTextAlignment, getCurrentTextAlignment, TextAlignment } from './plugins/text-position-plugin';
 import { applyTextDirection, getCurrentTextDirection, TextDirection } from './plugins/text-direction-plugin';
+import { clearAllFormatting } from './plugins/clear-formatting-plugin';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -275,75 +274,16 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   clearFormatting(): void {
     if (!this.editor) return;
 
-    this.editor.update(() => {
-      const selection = $getSelection();
-
-      if ($isRangeSelection(selection)) {
-        // Clear text formatting (bold, italic, underline, etc.)
-        if (this.isBold) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
-        if (this.isItalic) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
-        if (this.isUnderline) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
-        if (this.isStrikethrough) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
-        if (this.isCode) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
-
-        // Clear heading formats (h1, h2, h3)
-        if (this.isH1) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
-        if (this.isH2) this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
-        if (this.isH3) {
-          this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
-          this.editor!.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
-        }
-
-        // Get all nodes in selection
-        let nodes = selection.getNodes();
-        if (nodes.length === 0) {
-          const anchorNode = selection.anchor.getNode();
-          if (anchorNode) {
-            nodes = [anchorNode];
-          }
-        }
-
-        // Process each node to clear styles and block-level formatting
-        const processedParents = new Set<string>();
-
-        nodes.forEach((node) => {
-          // Clear inline styles (font size, font family, color) from text nodes
-          if ($isTextNode(node)) {
-            node.setStyle('');
-          }
-
-          // Get parent element for block-level clearing
-          let parent = $isElementNode(node) ? node : node.getParent();
-
-          // Find the top-level block element
-          while (parent !== null && parent.getParent() !== null && parent.getParent()?.getType() !== 'root') {
-            parent = parent.getParent();
-          }
-
-          if (parent && $isElementNode(parent)) {
-            const parentKey = parent.getKey();
-
-            if (!processedParents.has(parentKey)) {
-              processedParents.add(parentKey);
-
-              // Cast to ElementNode to access element-specific methods
-              const elementParent = parent as ElementNode;
-
-              // Reset text alignment to left
-              elementParent.setFormat('left');
-
-              // Reset text direction to ltr
-              elementParent.setDirection('ltr');
-
-              // Clear any inline styles on the element
-              elementParent.setStyle('');
-            }
-          }
-        });
-      }
+    clearAllFormatting(this.editor, {
+      isBold: this.isBold,
+      isItalic: this.isItalic,
+      isUnderline: this.isUnderline,
+      isStrikethrough: this.isStrikethrough,
+      isCode: this.isCode,
+      isH1: this.isH1,
+      isH2: this.isH2,
+      isH3: this.isH3
     });
-
-    this.editor.focus();
   }
 
   private log(editorState: EditorState): void {
