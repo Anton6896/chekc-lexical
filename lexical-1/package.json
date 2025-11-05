@@ -27,7 +27,10 @@
     "@lexical/rich-text": "^0.38.2",
     "@lexical/text": "^0.38.2",
     "@lexical/utils": "^0.38.2",
+    "@tiptap/core": "^2.27.1",
+    "@tiptap/starter-kit": "^2.27.1",
     "lexical": "^0.38.2",
+    "ngx-tiptap": "^12.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

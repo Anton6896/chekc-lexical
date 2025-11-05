@@ -4,7 +4,16 @@
 
 - <https://lexical.dev/docs/intro>
 - change to custom font
-- tiptap
+
+## tiptap
+
+```sh
+npm i -S ngx-tiptap@^12 @tiptap/core@^2 @tiptap/starter-kit@^2
+
+```
+
+- mayby this one good build too
+<https://www.npmjs.com/package/@flogeez/angular-tiptap-editor>
 
 ## test server
 

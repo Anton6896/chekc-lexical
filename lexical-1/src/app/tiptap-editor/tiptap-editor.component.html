@@ -1,1 +1,217 @@
-<p>tiptap-editor works!</p>
+<div class="tiptap-wrapper">
+  <h2>Tiptap Rich Text Editor</h2>
+
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleBold()"
+        [class.active]="isActive('bold')"
+        class="toolbar-button"
+        title="Bold">
+        <strong>B</strong>
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleItalic()"
+        [class.active]="isActive('italic')"
+        class="toolbar-button"
+        title="Italic">
+        <em>I</em>
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleStrike()"
+        [class.active]="isActive('strike')"
+        class="toolbar-button"
+        title="Strikethrough">
+        <s>S</s>
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleCode()"
+        [class.active]="isActive('code')"
+        class="toolbar-button"
+        title="Inline Code">
+        &lt;/&gt;
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="setParagraph()"
+        [class.active]="isActive('paragraph')"
+        class="toolbar-button"
+        title="Paragraph">
+        ¶
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleHeading(1)"
+        [class.active]="isActive('heading', { level: 1 })"
+        class="toolbar-button"
+        title="Heading 1">
+        H1
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleHeading(2)"
+        [class.active]="isActive('heading', { level: 2 })"
+        class="toolbar-button"
+        title="Heading 2">
+        H2
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleHeading(3)"
+        [class.active]="isActive('heading', { level: 3 })"
+        class="toolbar-button"
+        title="Heading 3">
+        H3
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleBulletList()"
+        [class.active]="isActive('bulletList')"
+        class="toolbar-button"
+        title="Bullet List">
+        • List
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleOrderedList()"
+        [class.active]="isActive('orderedList')"
+        class="toolbar-button"
+        title="Ordered List">
+        1. List
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleBlockquote()"
+        [class.active]="isActive('blockquote')"
+        class="toolbar-button"
+        title="Blockquote">
+        “”
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleCodeBlock()"
+        [class.active]="isActive('codeBlock')"
+        class="toolbar-button"
+        title="Code Block">
+        Code
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="insertHorizontalRule()"
+        class="toolbar-button"
+        title="Horizontal Rule">
+        ―
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="insertHardBreak()"
+        class="toolbar-button"
+        title="Line Break">
+        ⏎
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="undo()"
+        class="toolbar-button"
+        title="Undo">
+        ↶
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="redo()"
+        class="toolbar-button"
+        title="Redo">
+        ↷
+      </button>
+      <button
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="clearFormatting()"
+        class="toolbar-button"
+        title="Clear Formatting">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <div class="editor-container">
+    <tiptap-editor
+      class="tiptap-content"
+      [editor]="editor"
+      [(ngModel)]="content"
+      outputFormat="html">
+    </tiptap-editor>
+
+    <tiptap-bubble-menu [editor]="editor" class="bubble-menu">
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleBold()" [class.active]="isActive('bold')">
+        Bold
+      </button>
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleItalic()" [class.active]="isActive('italic')">
+        Italic
+      </button>
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleStrike()" [class.active]="isActive('strike')">
+        Strike
+      </button>
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleCode()" [class.active]="isActive('code')">
+        Code
+      </button>
+    </tiptap-bubble-menu>
+
+    <tiptap-floating-menu [editor]="editor" class="floating-menu">
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleHeading(2)">
+        Toggle H2
+      </button>
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleBulletList()">
+        Bullet List
+      </button>
+      <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleOrderedList()">
+        Ordered List
+      </button>
+    </tiptap-floating-menu>
+  </div>
+
+  <div class="output">
+    <h3>HTML Output</h3>
+    <pre><code>{{ htmlOutput }}</code></pre>
+  </div>
+</div>
