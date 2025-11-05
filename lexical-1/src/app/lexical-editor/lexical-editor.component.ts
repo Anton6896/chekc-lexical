@@ -9,7 +9,8 @@ import {
   REDO_COMMAND,
   $getSelection,
   $isRangeSelection,
-  TextFormatType
+  TextFormatType,
+  $isTextNode
 } from 'lexical';
 import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
 import { registerRichText } from '@lexical/rich-text';
@@ -38,6 +39,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   isH1: boolean = false;
   isH2: boolean = false;
   isH3: boolean = false;
+  currentFontSize: string = '16px';
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -110,6 +112,16 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.isH2 = selection.hasFormat('superscript'); // Using superscript for h2
           // For h3, check if both subscript and superscript are applied
           this.isH3 = selection.hasFormat('subscript') && selection.hasFormat('superscript');
+
+          // Get current font size from selected text
+          const node = selection.anchor.getNode();
+          if ($isTextNode(node)) {
+            const style = node.getStyle();
+            const fontSizeMatch = style.match(/font-size:\s*([^;]+)/);
+            this.currentFontSize = fontSizeMatch ? fontSizeMatch[1] : '16px';
+          } else {
+            this.currentFontSize = '16px';
+          }
         } else {
           this.isBold = false;
           this.isItalic = false;
@@ -119,6 +131,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.isH1 = false;
           this.isH2 = false;
           this.isH3 = false;
+          this.currentFontSize = '16px';
         }
       });
       this.log(editorState);
@@ -158,6 +171,33 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
         this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
       }
     }
+  }
+
+  setFontSize(size: string): void {
+    if (this.editor) {
+      this.editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          selection.getNodes().forEach(node => {
+            if ($isTextNode(node)) {
+              // Get current style and update/add font-size
+              let style = node.getStyle();
+              // Remove existing font-size if present
+              style = style.replace(/font-size:\s*[^;]+;?\s*/g, '');
+              // Add new font-size
+              style = style ? `${style}; font-size: ${size}` : `font-size: ${size}`;
+              node.setStyle(style.trim());
+            }
+          });
+        }
+      });
+      this.editor.focus();
+    }
+  }
+
+  onFontSizeChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.setFontSize(target.value);
   }
 
   undo(): void {
