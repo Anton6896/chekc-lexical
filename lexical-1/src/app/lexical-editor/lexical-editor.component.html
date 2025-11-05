@@ -39,6 +39,7 @@
       <button
         (mousedown)="$event.preventDefault()"
         (click)="formatText('code')"
+        [class.active]="isCode"
         title="Code"
         class="toolbar-button">
         &lt;/&gt;

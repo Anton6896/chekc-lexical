@@ -34,6 +34,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   isItalic: boolean = false;
   isUnderline: boolean = false;
   isStrikethrough: boolean = false;
+  isCode: boolean = false;
   activeHeading: 'h1' | 'h2' | 'h3' | null = null;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
@@ -106,6 +107,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.isItalic = selection.hasFormat('italic');
           this.isUnderline = selection.hasFormat('underline');
           this.isStrikethrough = selection.hasFormat('strikethrough');
+          this.isCode = selection.hasFormat('code');
 
           const anchorNode = selection.anchor.getNode();
           const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
@@ -115,6 +117,12 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           } else {
             this.activeHeading = null;
           }
+        } else {
+          this.isBold = false;
+          this.isItalic = false;
+          this.isUnderline = false;
+          this.isStrikethrough = false;
+          this.isCode = false;
         }
       });
       this.log(editorState);
@@ -174,6 +182,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
       if (this.isItalic) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
       if (this.isUnderline) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
       if (this.isStrikethrough) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
+      if (this.isCode) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
     }
   }
 
