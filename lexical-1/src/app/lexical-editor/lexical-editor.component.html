@@ -50,22 +50,25 @@
 
     <div class="toolbar-group">
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatHeading('h1')"
-        [class.active]="activeHeading === 'h1'"
+        [class.active]="isH1"
         title="Heading 1"
         class="toolbar-button">
         H1
       </button>
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatHeading('h2')"
-        [class.active]="activeHeading === 'h2'"
+        [class.active]="isH2"
         title="Heading 2"
         class="toolbar-button">
         H2
       </button>
       <button
+        (mousedown)="$event.preventDefault()"
         (click)="formatHeading('h3')"
-        [class.active]="activeHeading === 'h3'"
+        [class.active]="isH3"
         title="Heading 3"
         class="toolbar-button">
         H3

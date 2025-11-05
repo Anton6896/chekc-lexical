@@ -8,17 +8,17 @@ import {
   UNDO_COMMAND,
   REDO_COMMAND,
   $getSelection,
-  $isRangeSelection
+  $isRangeSelection,
+  TextFormatType
 } from 'lexical';
 import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
 import { registerRichText } from '@lexical/rich-text';
 import { registerHistory, createEmptyHistoryState } from '@lexical/history';
 import { $generateHtmlFromNodes } from '@lexical/html';
-import { HeadingNode, QuoteNode, $createHeadingNode, $isHeadingNode } from '@lexical/rich-text';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeNode, CodeHighlightNode } from '@lexical/code';
-import { $setBlocksType } from '@lexical/selection';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -35,7 +35,9 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   isUnderline: boolean = false;
   isStrikethrough: boolean = false;
   isCode: boolean = false;
-  activeHeading: 'h1' | 'h2' | 'h3' | null = null;
+  isH1: boolean = false;
+  isH2: boolean = false;
+  isH3: boolean = false;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -69,11 +71,8 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           underline: 'editor-text-underline',
           strikethrough: 'editor-text-strikethrough',
           code: 'editor-text-code',
-        },
-        heading: {
-          h1: 'editor-heading-h1',
-          h2: 'editor-heading-h2',
-          h3: 'editor-heading-h3',
+          subscript: 'editor-text-h1', // Using subscript for h1
+          superscript: 'editor-text-h2', // Using superscript for h2
         },
         quote: 'editor-quote',
         code: 'editor-code',
@@ -101,28 +100,25 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
     this.editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
         const selection = $getSelection();
-        this.activeHeading = null;
         if ($isRangeSelection(selection)) {
           this.isBold = selection.hasFormat('bold');
           this.isItalic = selection.hasFormat('italic');
           this.isUnderline = selection.hasFormat('underline');
           this.isStrikethrough = selection.hasFormat('strikethrough');
           this.isCode = selection.hasFormat('code');
-
-          const anchorNode = selection.anchor.getNode();
-          const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-          if ($isHeadingNode(element)) {
-            const tag = element.getTag();
-            this.activeHeading = tag === 'h1' || tag === 'h2' || tag === 'h3' ? tag : null;
-          } else {
-            this.activeHeading = null;
-          }
+          this.isH1 = selection.hasFormat('subscript'); // Using subscript for h1
+          this.isH2 = selection.hasFormat('superscript'); // Using superscript for h2
+          // For h3, check if both subscript and superscript are applied
+          this.isH3 = selection.hasFormat('subscript') && selection.hasFormat('superscript');
         } else {
           this.isBold = false;
           this.isItalic = false;
           this.isUnderline = false;
           this.isStrikethrough = false;
           this.isCode = false;
+          this.isH1 = false;
+          this.isH2 = false;
+          this.isH3 = false;
         }
       });
       this.log(editorState);
@@ -149,18 +145,18 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
 
   formatHeading(headingTag: 'h1' | 'h2' | 'h3'): void {
     if (this.editor) {
-      this.editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          const anchorNode = selection.anchor.getNode();
-          const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-          if ($isHeadingNode(element) && element.getTag() === headingTag) {
-            $setBlocksType(selection, () => $createParagraphNode());
-          } else {
-            $setBlocksType(selection, () => $createHeadingNode(headingTag));
-          }
-        }
-      });
+      this.editor.focus();
+      // Map heading tags to Lexical text formats
+      // Using subscript for h1, superscript for h2, both for h3
+      if (headingTag === 'h1') {
+        this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
+      } else if (headingTag === 'h2') {
+        this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
+      } else if (headingTag === 'h3') {
+        // For h3, apply both subscript and superscript
+        this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
+        this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
+      }
     }
   }
 

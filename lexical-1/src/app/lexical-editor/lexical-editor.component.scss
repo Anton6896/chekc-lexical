@@ -110,23 +110,27 @@
   font-size: 0.9em;
 }
 
-// Heading styles
-.editor-heading-h1 {
+// Inline heading styles (applied to selected text only)
+.editor-text-h1 {
   font-size: 2em;
   font-weight: bold;
-  margin: 0.67em 0;
+  line-height: 1.2;
+  vertical-align: baseline !important; // Override subscript positioning
 }
 
-.editor-heading-h2 {
+.editor-text-h2 {
   font-size: 1.5em;
   font-weight: bold;
-  margin: 0.75em 0;
+  line-height: 1.3;
+  vertical-align: baseline !important; // Override superscript positioning
 }
 
-.editor-heading-h3 {
+// H3 uses both subscript and superscript classes
+.editor-text-h1.editor-text-h2 {
   font-size: 1.17em;
   font-weight: bold;
-  margin: 0.83em 0;
+  line-height: 1.4;
+  vertical-align: baseline !important; // Override sub/super positioning
 }
 
 .editor-quote {
