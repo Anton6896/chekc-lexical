@@ -78,6 +78,35 @@
     <div class="toolbar-divider"></div>
 
     <div class="toolbar-group">
+      <button
+        (mousedown)="$event.preventDefault()"
+        (click)="setTextAlignment('left')"
+        [class.active]="isAlignLeft"
+        title="Align Left"
+        class="toolbar-button">
+        &#8676;
+      </button>
+      <button
+        (mousedown)="$event.preventDefault()"
+        (click)="setTextAlignment('center')"
+        [class.active]="isAlignCenter"
+        title="Align Center"
+        class="toolbar-button">
+        &#8801;
+      </button>
+      <button
+        (mousedown)="$event.preventDefault()"
+        (click)="setTextAlignment('right')"
+        [class.active]="isAlignRight"
+        title="Align Right"
+        class="toolbar-button">
+        &#8677;
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
       <select
         class="font-family-select"
         [value]="currentFontFamily"

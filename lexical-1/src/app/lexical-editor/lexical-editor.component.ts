@@ -23,6 +23,7 @@ import { CodeNode, CodeHighlightNode } from '@lexical/code';
 import { applyTextColor, rgbToHex } from './plugins/color-plugin';
 import { applyFontSize } from './plugins/font-size-plugin';
 import { applyFontFamily } from './plugins/font-family-plugin';
+import { applyTextAlignment, getCurrentTextAlignment, TextAlignment } from './plugins/text-position-plugin';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -45,6 +46,10 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   currentFontSize: string = '16px';
   currentFontFamily: string = 'system-ui, -apple-system, sans-serif';
   currentTextColor: string = '#000000';
+  currentTextAlignment: TextAlignment = 'left';
+  isAlignLeft: boolean = false;
+  isAlignCenter: boolean = false;
+  isAlignRight: boolean = false;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -133,6 +138,12 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
             this.currentFontFamily = 'system-ui, -apple-system, sans-serif';
             this.currentTextColor = '#000000';
           }
+
+          // Get current text alignment
+          this.currentTextAlignment = getCurrentTextAlignment(selection);
+          this.isAlignLeft = this.currentTextAlignment === 'left';
+          this.isAlignCenter = this.currentTextAlignment === 'center';
+          this.isAlignRight = this.currentTextAlignment === 'right';
         } else {
           this.isBold = false;
           this.isItalic = false;
@@ -145,6 +156,10 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.currentFontSize = '16px';
           this.currentFontFamily = 'system-ui, -apple-system, sans-serif';
           this.currentTextColor = '#000000';
+          this.currentTextAlignment = 'left';
+          this.isAlignLeft = false;
+          this.isAlignCenter = false;
+          this.isAlignRight = false;
         }
       });
       this.log(editorState);
@@ -217,6 +232,12 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   onTextColorChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.setTextColor(target.value);
+  }
+
+  setTextAlignment(alignment: TextAlignment): void {
+    if (this.editor) {
+      applyTextAlignment(this.editor, alignment);
+    }
   }
 
   undo(): void {

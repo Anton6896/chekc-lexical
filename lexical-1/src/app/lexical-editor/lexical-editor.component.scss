@@ -249,6 +249,50 @@
   border-radius: 4px;
 }
 
+// Text alignment styles - Lexical uses __format attribute
+.editor-paragraph {
+  margin: 0;
+  padding: 0;
+
+  // Lexical applies format via data attribute or class
+  &[style*="text-align"] {
+    // Let inline styles take precedence
+  }
+}
+
+// Lexical element formatting - these are applied via the FORMAT_ELEMENT_COMMAND
+.editor-container {
+  p, h1, h2, h3, h4, h5, h6, div {
+    // Default left alignment
+    &:not([style*="text-align"]) {
+      text-align: left;
+    }
+  }
+}
+
+// Support for Lexical's inline text-align styles
+.editor-container {
+  [style*="text-align: left"],
+  [style*="text-align:left"] {
+    text-align: left !important;
+  }
+
+  [style*="text-align: center"],
+  [style*="text-align:center"] {
+    text-align: center !important;
+  }
+
+  [style*="text-align: right"],
+  [style*="text-align:right"] {
+    text-align: right !important;
+  }
+
+  [style*="text-align: justify"],
+  [style*="text-align:justify"] {
+    text-align: justify !important;
+  }
+}
+
 .html-output {
   max-width: 800px;
   margin: 2rem auto;
