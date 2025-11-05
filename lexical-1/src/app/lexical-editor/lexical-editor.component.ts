@@ -14,7 +14,7 @@ import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
 import { registerRichText } from '@lexical/rich-text';
 import { registerHistory, createEmptyHistoryState } from '@lexical/history';
 import { $generateHtmlFromNodes } from '@lexical/html';
-import { HeadingNode, QuoteNode, $createHeadingNode } from '@lexical/rich-text';
+import { HeadingNode, QuoteNode, $createHeadingNode, $isHeadingNode } from '@lexical/rich-text';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeNode, CodeHighlightNode } from '@lexical/code';
@@ -133,7 +133,13 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
       this.editor.update(() => {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
-          $setBlocksType(selection, () => $createHeadingNode(headingTag));
+          const anchorNode = selection.anchor.getNode();
+          const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
+          if ($isHeadingNode(element) && element.getTag() === headingTag) {
+            $setBlocksType(selection, () => $createParagraphNode());
+          } else {
+            $setBlocksType(selection, () => $createHeadingNode(headingTag));
+          }
         }
       });
     }
