@@ -1,5 +1,97 @@
 <div class="editor-wrapper row">
-  <h2>Lexical Editor</h2>
+  <h2>Lexical Rich Text Editor</h2>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button
+        (click)="formatText('bold')"
+        [class.active]="isBold"
+        title="Bold (Ctrl+B)"
+        class="toolbar-button">
+        <strong>B</strong>
+      </button>
+      <button
+        (click)="formatText('italic')"
+        [class.active]="isItalic"
+        title="Italic (Ctrl+I)"
+        class="toolbar-button">
+        <em>I</em>
+      </button>
+      <button
+        (click)="formatText('underline')"
+        [class.active]="isUnderline"
+        title="Underline (Ctrl+U)"
+        class="toolbar-button">
+        <u>U</u>
+      </button>
+      <button
+        (click)="formatText('strikethrough')"
+        [class.active]="isStrikethrough"
+        title="Strikethrough"
+        class="toolbar-button">
+        <s>S</s>
+      </button>
+      <button
+        (click)="formatText('code')"
+        title="Code"
+        class="toolbar-button">
+        &lt;/&gt;
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        (click)="formatHeading('h1')"
+        title="Heading 1"
+        class="toolbar-button">
+        H1
+      </button>
+      <button
+        (click)="formatHeading('h2')"
+        title="Heading 2"
+        class="toolbar-button">
+        H2
+      </button>
+      <button
+        (click)="formatHeading('h3')"
+        title="Heading 3"
+        class="toolbar-button">
+        H3
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        (click)="undo()"
+        title="Undo (Ctrl+Z)"
+        class="toolbar-button">
+        ↶
+      </button>
+      <button
+        (click)="redo()"
+        title="Redo (Ctrl+Y)"
+        class="toolbar-button">
+        ↷
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        (click)="clearFormatting()"
+        title="Clear Formatting"
+        class="toolbar-button">
+        ✕
+      </button>
+    </div>
+  </div>
+
   <div #editorContainer class="editor-container" contenteditable="true"></div>
 </div>
 

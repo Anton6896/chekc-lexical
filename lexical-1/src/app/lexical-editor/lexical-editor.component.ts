@@ -1,10 +1,23 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { createEditor, EditorState, LexicalEditor } from 'lexical';
+import {
+  createEditor,
+  EditorState,
+  LexicalEditor,
+  FORMAT_TEXT_COMMAND,
+  UNDO_COMMAND,
+  REDO_COMMAND,
+  $getSelection,
+  $isRangeSelection
+} from 'lexical';
 import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
-import { registerPlainText } from '@lexical/plain-text';
+import { registerRichText } from '@lexical/rich-text';
 import { registerHistory, createEmptyHistoryState } from '@lexical/history';
 import { $generateHtmlFromNodes } from '@lexical/html';
+import { HeadingNode, QuoteNode, $createHeadingNode } from '@lexical/rich-text';
+import { LinkNode, AutoLinkNode } from '@lexical/link';
+import { ListNode, ListItemNode } from '@lexical/list';
+import { CodeNode, CodeHighlightNode } from '@lexical/code';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -14,8 +27,11 @@ import { $generateHtmlFromNodes } from '@lexical/html';
   styleUrl: './lexical-editor.component.scss'
 })
 export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
-
-  htmlRepresentation: string = ''
+  htmlRepresentation: string = '';
+  isBold: boolean = false;
+  isItalic: boolean = false;
+  isUnderline: boolean = false;
+  isStrikethrough: boolean = false;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -43,18 +59,51 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
         rtl: 'rtl',
         placeholder: 'editor-placeholder',
         paragraph: 'editor-paragraph',
-      }
+        text: {
+          bold: 'editor-text-bold',
+          italic: 'editor-text-italic',
+          underline: 'editor-text-underline',
+          strikethrough: 'editor-text-strikethrough',
+          code: 'editor-text-code',
+        },
+        heading: {
+          h1: 'editor-heading-h1',
+          h2: 'editor-heading-h2',
+          h3: 'editor-heading-h3',
+        },
+        quote: 'editor-quote',
+        code: 'editor-code',
+      },
+      nodes: [
+        HeadingNode,
+        QuoteNode,
+        LinkNode,
+        AutoLinkNode,
+        ListNode,
+        ListItemNode,
+        CodeNode,
+        CodeHighlightNode,
+      ]
     };
 
     this.editor = createEditor(editorConfig);
     this.editor.setRootElement(this.editorContainer.nativeElement);
 
     // Register plugins
-    registerPlainText(this.editor);
+    registerRichText(this.editor);
     registerHistory(this.editor, createEmptyHistoryState(), 300);
 
-    // Listen to changes
+    // Listen to changes and update formatting state
     this.editor.registerUpdateListener(({ editorState }) => {
+      editorState.read(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          this.isBold = selection.hasFormat('bold');
+          this.isItalic = selection.hasFormat('italic');
+          this.isUnderline = selection.hasFormat('underline');
+          this.isStrikethrough = selection.hasFormat('strikethrough');
+        }
+      });
       this.log(editorState);
     });
 
@@ -67,6 +116,46 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
         root.append(paragraph);
       }
     });
+  }
+
+  // Toolbar actions
+  formatText(format: 'bold' | 'italic' | 'underline' | 'strikethrough' | 'code'): void {
+    if (this.editor) {
+      this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
+    }
+  }
+
+  formatHeading(headingTag: 'h1' | 'h2' | 'h3'): void {
+    if (this.editor) {
+      this.editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          const heading = $createHeadingNode(headingTag);
+          selection.insertNodes([heading]);
+        }
+      });
+    }
+  }
+
+  undo(): void {
+    if (this.editor) {
+      this.editor.dispatchCommand(UNDO_COMMAND, undefined);
+    }
+  }
+
+  redo(): void {
+    if (this.editor) {
+      this.editor.dispatchCommand(REDO_COMMAND, undefined);
+    }
+  }
+
+  clearFormatting(): void {
+    if (this.editor) {
+      if (this.isBold) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
+      if (this.isItalic) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
+      if (this.isUnderline) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
+      if (this.isStrikethrough) this.editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
+    }
   }
 
   private log(editorState: EditorState): void {
