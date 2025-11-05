@@ -18,6 +18,7 @@ import { HeadingNode, QuoteNode, $createHeadingNode } from '@lexical/rich-text';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeNode, CodeHighlightNode } from '@lexical/code';
+import { $setBlocksType } from '@lexical/selection';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -132,8 +133,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
       this.editor.update(() => {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
-          const heading = $createHeadingNode(headingTag);
-          selection.insertNodes([heading]);
+          $setBlocksType(selection, () => $createHeadingNode(headingTag));
         }
       });
     }
