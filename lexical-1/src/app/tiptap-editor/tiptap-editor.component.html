@@ -1,42 +1,42 @@
-<div class="tiptap-wrapper">
+<div class="tiptap-wrapper row">
   <h2>Tiptap Rich Text Editor</h2>
 
   <div class="toolbar">
     <div class="toolbar-group">
       <button
         type="button"
+        class="toolbar-button"
+        title="Bold (Ctrl+B)"
         (mousedown)="$event.preventDefault()"
         (click)="toggleBold()"
-        [class.active]="isActive('bold')"
-        class="toolbar-button"
-        title="Bold">
+        [class.active]="isActive('bold')">
         <strong>B</strong>
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Italic (Ctrl+I)"
         (mousedown)="$event.preventDefault()"
         (click)="toggleItalic()"
-        [class.active]="isActive('italic')"
-        class="toolbar-button"
-        title="Italic">
+        [class.active]="isActive('italic')">
         <em>I</em>
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Strikethrough"
         (mousedown)="$event.preventDefault()"
         (click)="toggleStrike()"
-        [class.active]="isActive('strike')"
-        class="toolbar-button"
-        title="Strikethrough">
+        [class.active]="isActive('strike')">
         <s>S</s>
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Inline Code"
         (mousedown)="$event.preventDefault()"
         (click)="toggleCode()"
-        [class.active]="isActive('code')"
-        class="toolbar-button"
-        title="Inline Code">
+        [class.active]="isActive('code')">
         &lt;/&gt;
       </button>
     </div>
@@ -46,38 +46,38 @@
     <div class="toolbar-group">
       <button
         type="button"
+        class="toolbar-button"
+        title="Paragraph"
         (mousedown)="$event.preventDefault()"
         (click)="setParagraph()"
-        [class.active]="isActive('paragraph')"
-        class="toolbar-button"
-        title="Paragraph">
+        [class.active]="isActive('paragraph')">
         ¶
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Heading 1"
         (mousedown)="$event.preventDefault()"
         (click)="toggleHeading(1)"
-        [class.active]="isActive('heading', { level: 1 })"
-        class="toolbar-button"
-        title="Heading 1">
+        [class.active]="isActive('heading', { level: 1 })">
         H1
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Heading 2"
         (mousedown)="$event.preventDefault()"
         (click)="toggleHeading(2)"
-        [class.active]="isActive('heading', { level: 2 })"
-        class="toolbar-button"
-        title="Heading 2">
+        [class.active]="isActive('heading', { level: 2 })">
         H2
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Heading 3"
         (mousedown)="$event.preventDefault()"
         (click)="toggleHeading(3)"
-        [class.active]="isActive('heading', { level: 3 })"
-        class="toolbar-button"
-        title="Heading 3">
+        [class.active]="isActive('heading', { level: 3 })">
         H3
       </button>
     </div>
@@ -87,38 +87,38 @@
     <div class="toolbar-group">
       <button
         type="button"
+        class="toolbar-button"
+        title="Bullet List"
         (mousedown)="$event.preventDefault()"
         (click)="toggleBulletList()"
-        [class.active]="isActive('bulletList')"
-        class="toolbar-button"
-        title="Bullet List">
+        [class.active]="isActive('bulletList')">
         • List
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Ordered List"
         (mousedown)="$event.preventDefault()"
         (click)="toggleOrderedList()"
-        [class.active]="isActive('orderedList')"
-        class="toolbar-button"
-        title="Ordered List">
+        [class.active]="isActive('orderedList')">
         1. List
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Blockquote"
         (mousedown)="$event.preventDefault()"
         (click)="toggleBlockquote()"
-        [class.active]="isActive('blockquote')"
-        class="toolbar-button"
-        title="Blockquote">
+        [class.active]="isActive('blockquote')">
         “”
       </button>
       <button
         type="button"
+        class="toolbar-button"
+        title="Code Block"
         (mousedown)="$event.preventDefault()"
         (click)="toggleCodeBlock()"
-        [class.active]="isActive('codeBlock')"
-        class="toolbar-button"
-        title="Code Block">
+        [class.active]="isActive('codeBlock')">
         Code
       </button>
     </div>
@@ -128,18 +128,18 @@
     <div class="toolbar-group">
       <button
         type="button"
-        (mousedown)="$event.preventDefault()"
-        (click)="insertHorizontalRule()"
         class="toolbar-button"
-        title="Horizontal Rule">
+        title="Horizontal Rule"
+        (mousedown)="$event.preventDefault()"
+        (click)="insertHorizontalRule()">
         ―
       </button>
       <button
         type="button"
-        (mousedown)="$event.preventDefault()"
-        (click)="insertHardBreak()"
         class="toolbar-button"
-        title="Line Break">
+        title="Line Break"
+        (mousedown)="$event.preventDefault()"
+        (click)="insertHardBreak()">
         ⏎
       </button>
     </div>
@@ -149,26 +149,26 @@
     <div class="toolbar-group">
       <button
         type="button"
-        (mousedown)="$event.preventDefault()"
-        (click)="undo()"
         class="toolbar-button"
-        title="Undo">
+        title="Undo (Ctrl+Z)"
+        (mousedown)="$event.preventDefault()"
+        (click)="undo()">
         ↶
       </button>
       <button
         type="button"
-        (mousedown)="$event.preventDefault()"
-        (click)="redo()"
         class="toolbar-button"
-        title="Redo">
+        title="Redo (Ctrl+Y)"
+        (mousedown)="$event.preventDefault()"
+        (click)="redo()">
         ↷
       </button>
       <button
         type="button"
-        (mousedown)="$event.preventDefault()"
-        (click)="clearFormatting()"
         class="toolbar-button"
-        title="Clear Formatting">
+        title="Clear Formatting"
+        (mousedown)="$event.preventDefault()"
+        (click)="clearFormatting()">
         ✕
       </button>
     </div>
@@ -182,7 +182,7 @@
       outputFormat="html">
     </tiptap-editor>
 
-    <tiptap-bubble-menu [editor]="editor" class="bubble-menu">
+    <tiptap-bubble-menu class="bubble-menu" [editor]="editor">
       <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleBold()" [class.active]="isActive('bold')">
         Bold
       </button>
@@ -197,7 +197,7 @@
       </button>
     </tiptap-bubble-menu>
 
-    <tiptap-floating-menu [editor]="editor" class="floating-menu">
+    <tiptap-floating-menu class="floating-menu" [editor]="editor">
       <button type="button" (mousedown)="$event.preventDefault()" (click)="toggleHeading(2)">
         Toggle H2
       </button>
@@ -209,9 +209,11 @@
       </button>
     </tiptap-floating-menu>
   </div>
+</div>
 
-  <div class="output">
-    <h3>HTML Output</h3>
+<div class="row html-output">
+  <h3>HTML Output:</h3>
+  <div class="html-container">
     <pre><code>{{ htmlOutput }}</code></pre>
   </div>
 </div>

@@ -59,64 +59,68 @@ export class TiptapEditorComponent implements OnDestroy {
     this.editor.destroy();
   }
 
+  private chain(callback: (editor: Editor) => void): void {
+    callback(this.editor);
+  }
+
   toggleBold(): void {
-    this.editor.chain().focus().toggleBold().run();
+    this.chain(editor => editor.chain().focus().toggleBold().run());
   }
 
   toggleItalic(): void {
-    this.editor.chain().focus().toggleItalic().run();
+    this.chain(editor => editor.chain().focus().toggleItalic().run());
   }
 
   toggleStrike(): void {
-    this.editor.chain().focus().toggleStrike().run();
+    this.chain(editor => editor.chain().focus().toggleStrike().run());
   }
 
   toggleCode(): void {
-    this.editor.chain().focus().toggleCode().run();
+    this.chain(editor => editor.chain().focus().toggleCode().run());
   }
 
   toggleCodeBlock(): void {
-    this.editor.chain().focus().toggleCodeBlock().run();
+    this.chain(editor => editor.chain().focus().toggleCodeBlock().run());
   }
 
   toggleBlockquote(): void {
-    this.editor.chain().focus().toggleBlockquote().run();
+    this.chain(editor => editor.chain().focus().toggleBlockquote().run());
   }
 
   toggleBulletList(): void {
-    this.editor.chain().focus().toggleBulletList().run();
+    this.chain(editor => editor.chain().focus().toggleBulletList().run());
   }
 
   toggleOrderedList(): void {
-    this.editor.chain().focus().toggleOrderedList().run();
+    this.chain(editor => editor.chain().focus().toggleOrderedList().run());
   }
 
   setParagraph(): void {
-    this.editor.chain().focus().setParagraph().run();
+    this.chain(editor => editor.chain().focus().setParagraph().run());
   }
 
   toggleHeading(level: Level): void {
-    this.editor.chain().focus().toggleHeading({ level }).run();
+    this.chain(editor => editor.chain().focus().toggleHeading({ level }).run());
   }
 
   insertHorizontalRule(): void {
-    this.editor.chain().focus().setHorizontalRule().run();
+    this.chain(editor => editor.chain().focus().setHorizontalRule().run());
   }
 
   insertHardBreak(): void {
-    this.editor.chain().focus().setHardBreak().run();
+    this.chain(editor => editor.chain().focus().setHardBreak().run());
   }
 
   undo(): void {
-    this.editor.chain().focus().undo().run();
+    this.chain(editor => editor.chain().focus().undo().run());
   }
 
   redo(): void {
-    this.editor.chain().focus().redo().run();
+    this.chain(editor => editor.chain().focus().redo().run());
   }
 
   clearFormatting(): void {
-    this.editor.chain().focus().unsetAllMarks().clearNodes().run();
+    this.chain(editor => editor.chain().focus().unsetAllMarks().clearNodes().run());
   }
 
   isActive(name: string, attrs?: Record<string, unknown>): boolean {
