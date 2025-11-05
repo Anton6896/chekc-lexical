@@ -80,6 +80,27 @@
     <div class="toolbar-group">
       <button
         (mousedown)="$event.preventDefault()"
+        (click)="toggleBulletListFormatting()"
+        [class.active]="isBulletList"
+        title="Bullet List"
+        class="toolbar-button">
+        ●
+      </button>
+      <button
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleNumberedListFormatting()"
+        [class.active]="isNumberedList"
+        title="Numbered List"
+        class="toolbar-button">
+        1.
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <button
+        (mousedown)="$event.preventDefault()"
         (click)="setTextAlignment('left')"
         [class.active]="isAlignLeft"
         title="Align Left"

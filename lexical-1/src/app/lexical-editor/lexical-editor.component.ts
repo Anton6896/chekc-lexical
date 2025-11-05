@@ -15,6 +15,7 @@ import {
 import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
 import { registerRichText } from '@lexical/rich-text';
 import { registerHistory, createEmptyHistoryState } from '@lexical/history';
+import { registerList } from '@lexical/list';
 import { $generateHtmlFromNodes } from '@lexical/html';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
@@ -26,6 +27,7 @@ import { applyFontFamily } from './plugins/font-family-plugin';
 import { applyTextAlignment, getCurrentTextAlignment, TextAlignment } from './plugins/text-position-plugin';
 import { applyTextDirection, getCurrentTextDirection, TextDirection } from './plugins/text-direction-plugin';
 import { clearAllFormatting } from './plugins/clear-formatting-plugin';
+import { toggleBulletList, toggleNumberedList, getCurrentListType, ListType } from './plugins/list-plugin';
 
 @Component({
   selector: 'app-lexical-editor',
@@ -55,6 +57,9 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   currentTextDirection: TextDirection = 'ltr';
   isLtr: boolean = true;
   isRtl: boolean = false;
+  currentListType: ListType = null;
+  isBulletList: boolean = false;
+  isNumberedList: boolean = false;
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
 
@@ -112,6 +117,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
     // Register plugins
     registerRichText(this.editor);
     registerHistory(this.editor, createEmptyHistoryState(), 300);
+    registerList(this.editor);
 
     // Listen to changes and update formatting state
     this.editor.registerUpdateListener(({ editorState }) => {
@@ -154,6 +160,11 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.currentTextDirection = getCurrentTextDirection(selection);
           this.isLtr = this.currentTextDirection === 'ltr';
           this.isRtl = this.currentTextDirection === 'rtl';
+
+          // Get current list type
+          this.currentListType = getCurrentListType(selection);
+          this.isBulletList = this.currentListType === 'bullet';
+          this.isNumberedList = this.currentListType === 'number';
         } else {
           this.isBold = false;
           this.isItalic = false;
@@ -173,6 +184,9 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
           this.currentTextDirection = 'ltr';
           this.isLtr = true;
           this.isRtl = false;
+          this.currentListType = null;
+          this.isBulletList = false;
+          this.isNumberedList = false;
         }
       });
       this.log(editorState);
@@ -256,6 +270,18 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
   setTextDirection(direction: TextDirection): void {
     if (this.editor) {
       applyTextDirection(this.editor, direction);
+    }
+  }
+
+  toggleBulletListFormatting(): void {
+    if (this.editor) {
+      toggleBulletList(this.editor);
+    }
+  }
+
+  toggleNumberedListFormatting(): void {
+    if (this.editor) {
+      toggleNumberedList(this.editor);
     }
   }
 
