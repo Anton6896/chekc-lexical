@@ -2,11 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
+  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Editor } from '@tiptap/core';
+import StarterKit from '@tiptap/starter-kit';
+import { TiptapEditorDirective } from 'ngx-tiptap';
+import type { Level } from '@tiptap/extension-heading';
 
 @Component({
   selector: 'app-tiptap-editor',
@@ -14,21 +18,110 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    TiptapEditorDirective,
   ],
   templateUrl: './tiptap-editor.component.html',
   styleUrls: ['./tiptap-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TiptapEditorComponent implements OnDestroy {
-  ngOnDestroy(): void {
-    console.log();
-    
-  }
-
+export class TiptapEditorComponent implements OnInit, OnDestroy {
+  editor!: Editor;
 
   content = '<p>Hello, Tiptap!</p>';
   htmlOutput = this.content;
 
+  ngOnInit(): void {
+    this.editor = new Editor({
+      extensions: [
+        StarterKit.configure({
+          bulletList: { keepMarks: true },
+          orderedList: { keepMarks: true },
+        }),
+      ],
+      content: this.content,
+      onUpdate: ({ editor }) => {
+        this.htmlOutput = editor.getHTML();
+        this.content = this.htmlOutput;
+      },
+      editorProps: {
+        attributes: {
+          class: 'tiptap-editor',
+        },
+      },
+    });
+  }
 
+  toggleBold(): void {
+    this.editor?.chain().focus().toggleBold().run();
+  }
+
+  toggleItalic(): void {
+    this.editor?.chain().focus().toggleItalic().run();
+  }
+
+  toggleStrike(): void {
+    this.editor?.chain().focus().toggleStrike().run();
+  }
+
+  toggleCode(): void {
+    this.editor?.chain().focus().toggleCode().run();
+  }
+
+  toggleParagraph(): void {
+    this.editor?.chain().focus().setParagraph().run();
+  }
+
+  toggleHeading(level: Level): void {
+    this.editor?.chain().focus().toggleHeading({ level }).run();
+  }
+
+  toggleBulletList(): void {
+    this.editor?.chain().focus().toggleBulletList().run();
+  }
+
+  toggleOrderedList(): void {
+    this.editor?.chain().focus().toggleOrderedList().run();
+  }
+
+  toggleBlockquote(): void {
+    this.editor?.chain().focus().toggleBlockquote().run();
+  }
+
+  toggleCodeBlock(): void {
+    this.editor?.chain().focus().toggleCodeBlock().run();
+  }
+
+  insertHorizontalRule(): void {
+    this.editor?.chain().focus().setHorizontalRule().run();
+  }
+
+  insertHardBreak(): void {
+    this.editor?.chain().focus().setHardBreak().run();
+  }
+
+  clearFormatting(): void {
+    this.editor
+      ?.chain()
+      .focus()
+      .unsetAllMarks()
+      .clearNodes()
+      .run();
+  }
+
+  undo(): void {
+    this.editor?.chain().focus().undo().run();
+  }
+
+  redo(): void {
+    this.editor?.chain().focus().redo().run();
+  }
+
+  isActive(name: string, attrs?: Record<string, unknown>): boolean {
+    return !!this.editor?.isActive(name, attrs);
+  }
+
+  ngOnDestroy(): void {
+    this.editor?.destroy();
+  }
 }

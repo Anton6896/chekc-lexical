@@ -1,0 +1,111 @@
+/* Layout containers for editor and preview panes */
+.tiptap-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.editor-pane,
+.html-pane {
+  background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.toolbar button {
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.toolbar button:hover {
+  background-color: #e2e8f0;
+}
+
+.toolbar button.active {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+.toolbar button:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+.editor-host {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tiptap-editor {
+  min-height: 320px;
+  padding: 1rem;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.tiptap-editor h1,
+.tiptap-editor h2,
+.tiptap-editor h3 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.tiptap-editor ul,
+.tiptap-editor ol {
+  padding-inline-start: 1.5rem;
+}
+
+.tiptap-editor blockquote {
+  border-left: 4px solid #94a3b8;
+  padding-left: 1rem;
+  color: #475569;
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+.tiptap-editor pre {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow: auto;
+}
+
+.html-container {
+  background-color: #0f172a;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #e2e8f0;
+  overflow: auto;
+  max-height: 320px;
+}
+
+.html-container pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.html-container code {
+  font-family: 'Fira Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 0.9rem;
+  display: block;
+}
