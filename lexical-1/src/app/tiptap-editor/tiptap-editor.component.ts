@@ -11,9 +11,7 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
-import TextAliginExtention, {
-  type TextAlign,
-} from './extentions/tiptap-text-aligin-extension';
+import TextAliginExtention, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
 
 @Component({
   selector: 'app-tiptap-editor',
@@ -133,11 +131,9 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
     }
 
     const paragraphAlign =
-      (this.editor.getAttributes('paragraph')['textAlign'] as TextAlign | null) ??
-      this.defaultAlignment;
+      (this.editor.getAttributes('paragraph')['textAlign'] as TextAlign | null) ?? this.defaultAlignment;
     const headingAlign =
-      (this.editor.getAttributes('heading')['textAlign'] as TextAlign | null) ??
-      this.defaultAlignment;
+      (this.editor.getAttributes('heading')['textAlign'] as TextAlign | null) ?? this.defaultAlignment;
 
     return paragraphAlign === alignment || headingAlign === alignment;
   }
