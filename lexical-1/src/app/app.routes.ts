@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: TiptapEditorComponent
   },
   {
-    path: 'flogeez-tiptap',
+    path: 'flogeez',
     component: FlogeezTiptapEditorComponent
   }
 ];
