@@ -11,6 +11,9 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
+import TextAliginExtention, {
+  type TextAlign,
+} from './extentions/tiptap-text-aligin-extension';
 
 @Component({
   selector: 'app-tiptap-editor',
@@ -30,6 +33,8 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
 
   content = '<p>Hello, Tiptap!</p>';
   htmlOutput = this.content;
+  readonly alignments: TextAlign[] = ['left', 'center', 'right', 'justify'];
+  readonly defaultAlignment: TextAlign = 'left';
 
   ngOnInit(): void {
     this.editor = new Editor({
@@ -38,6 +43,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
           bulletList: { keepMarks: true },
           orderedList: { keepMarks: true },
         }),
+        TextAliginExtention,
       ],
       content: this.content,
       onUpdate: ({ editor }) => {
@@ -115,6 +121,25 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
 
   redo(): void {
     this.editor?.chain().focus().redo().run();
+  }
+
+  setTextAlign(alignment: TextAlign): void {
+    this.editor?.chain().focus().setTextAlign(alignment).run();
+  }
+
+  isAlignmentActive(alignment: TextAlign): boolean {
+    if (!this.editor) {
+      return false;
+    }
+
+    const paragraphAlign =
+      (this.editor.getAttributes('paragraph')['textAlign'] as TextAlign | null) ??
+      this.defaultAlignment;
+    const headingAlign =
+      (this.editor.getAttributes('heading')['textAlign'] as TextAlign | null) ??
+      this.defaultAlignment;
+
+    return paragraphAlign === alignment || headingAlign === alignment;
   }
 
   isActive(name: string, attrs?: Record<string, unknown>): boolean {

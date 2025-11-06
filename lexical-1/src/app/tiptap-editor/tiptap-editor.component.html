@@ -87,6 +87,34 @@
       >
         Code Block
       </button>
+      <button
+        type="button"
+        [class.active]="isAlignmentActive('left')"
+        (click)="setTextAlign('left')"
+      >
+        Align Left
+      </button>
+      <button
+        type="button"
+        [class.active]="isAlignmentActive('center')"
+        (click)="setTextAlign('center')"
+      >
+        Align Center
+      </button>
+      <button
+        type="button"
+        [class.active]="isAlignmentActive('right')"
+        (click)="setTextAlign('right')"
+      >
+        Align Right
+      </button>
+      <button
+        type="button"
+        [class.active]="isAlignmentActive('justify')"
+        (click)="setTextAlign('justify')"
+      >
+        Justify
+      </button>
       <button type="button" (click)="insertHorizontalRule()">
         HR
       </button>
