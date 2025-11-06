@@ -1,1 +1,15 @@
-<p>flogeez-tiptap-editor works!</p>
+<div class="row">
+  <h2>FlogeezTiptapEditorComponent</h2>
+</div>
+<div class="row">
+  <form>
+    <angular-tiptap-editor
+      [content]="content"
+      [toolbar]="toolbarConfig"
+      [bubbleMenu]="bubbleMenuConfig"
+      [locale]="'en'"
+      [height]="400"
+      (contentChange)="onContentChange($event)"
+    />
+  </form>
+</div>

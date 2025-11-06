@@ -32,7 +32,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@fontsource/material-symbols-outlined/index.css",
+              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css"
             ],
             "scripts": []
           },
@@ -91,7 +93,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@fontsource/material-symbols-outlined/index.css",
+              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css"
             ],
             "scripts": []
           }
