@@ -17,6 +17,7 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@flogeez/angular-tiptap-editor": "^0.3.3",
     "@lexical/code": "^0.38.2",
     "@lexical/dragon": "^0.38.2",
     "@lexical/history": "^0.38.2",
