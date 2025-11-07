@@ -1,143 +1,139 @@
 <div class="tiptap-wrapper">
-  <div class="editor-pane">
-    <h2>Tiptap Rich Text Editor</h2>
+  <div class="row">
+    <div class="col mt-1 ms-1">
+      <div class="editor-pane">
+        <h2>Tiptap Rich Text Editor</h2>
 
-    <div class="toolbar" *ngIf="editor">
-      <button
-        type="button"
-        [class.active]="isActive('paragraph')"
-        (click)="toggleParagraph()"
-      >
-        Text
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('heading', { level: 1 })"
-        (click)="toggleHeading(1)"
-      >
-        H1
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('heading', { level: 2 })"
-        (click)="toggleHeading(2)"
-      >
-        H2
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('heading', { level: 3 })"
-        (click)="toggleHeading(3)"
-      >
-        H3
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('bold')"
-        (click)="toggleBold()"
-      >
-        Bold
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('italic')"
-        (click)="toggleItalic()"
-      >
-        Italic
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('strike')"
-        (click)="toggleStrike()"
-      >
-        Strike
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('code')"
-        (click)="toggleCode()"
-      >
-        Code
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('bulletList')"
-        (click)="toggleBulletList()"
-      >
-        Bullet List
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('orderedList')"
-        (click)="toggleOrderedList()"
-      >
-        Ordered List
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('blockquote')"
-        (click)="toggleBlockquote()"
-      >
-        Quote
-      </button>
-      <button
-        type="button"
-        [class.active]="isActive('codeBlock')"
-        (click)="toggleCodeBlock()"
-      >
-        Code Block
-      </button>
-      <button
-        type="button"
-        [class.active]="isAlignmentActive('left')"
-        (click)="setTextAlign('left')"
-      >
-        Align Left
-      </button>
-      <button
-        type="button"
-        [class.active]="isAlignmentActive('center')"
-        (click)="setTextAlign('center')"
-      >
-        Align Center
-      </button>
-      <button
-        type="button"
-        [class.active]="isAlignmentActive('right')"
-        (click)="setTextAlign('right')"
-      >
-        Align Right
-      </button>
-      <button
-        type="button"
-        [class.active]="isAlignmentActive('justify')"
-        (click)="setTextAlign('justify')"
-      >
-        Justify
-      </button>
-      <button type="button" (click)="insertHorizontalRule()">
-        HR
-      </button>
-      <button type="button" (click)="insertHardBreak()">
-        Line Break
-      </button>
-      <button type="button" (click)="clearFormatting()">
-        Clear
-      </button>
-      <button type="button" (click)="undo()">
-        Undo
-      </button>
-      <button type="button" (click)="redo()">
-        Redo
-      </button>
+        <div class="toolbar" *ngIf="editor">
+          <button
+            type="button"
+            [class.active]="isActive('paragraph')"
+            (click)="toggleParagraph()"
+          >
+            Text
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('heading', { level: 1 })"
+            (click)="toggleHeading(1)"
+          >
+            H1
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('heading', { level: 2 })"
+            (click)="toggleHeading(2)"
+          >
+            H2
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('heading', { level: 3 })"
+            (click)="toggleHeading(3)"
+          >
+            H3
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('bold')"
+            (click)="toggleBold()"
+          >
+            Bold
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('italic')"
+            (click)="toggleItalic()"
+          >
+            Italic
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('strike')"
+            (click)="toggleStrike()"
+          >
+            Strike
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('code')"
+            (click)="toggleCode()"
+          >
+            Code
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('bulletList')"
+            (click)="toggleBulletList()"
+          >
+            Bullet List
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('orderedList')"
+            (click)="toggleOrderedList()"
+          >
+            Ordered List
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('blockquote')"
+            (click)="toggleBlockquote()"
+          >
+            Quote
+          </button>
+          <button
+            type="button"
+            [class.active]="isActive('codeBlock')"
+            (click)="toggleCodeBlock()"
+          >
+            Code Block
+          </button>
+          <button
+            type="button"
+            [class.active]="isAlignmentActive('left')"
+            (click)="setTextAlign('left')"
+          >
+            Align Left
+          </button>
+          <button
+            type="button"
+            [class.active]="isAlignmentActive('center')"
+            (click)="setTextAlign('center')"
+          >
+            Align Center
+          </button>
+          <button
+            type="button"
+            [class.active]="isAlignmentActive('right')"
+            (click)="setTextAlign('right')"
+          >
+            Align Right
+          </button>
+          <button
+            type="button"
+            [class.active]="isAlignmentActive('justify')"
+            (click)="setTextAlign('justify')"
+          >
+            Justify
+          </button>
+          <button type="button" (click)="insertHorizontalRule()">HR</button>
+          <button type="button" (click)="insertHardBreak()">Line Break</button>
+          <button type="button" (click)="clearFormatting()">Clear</button>
+          <button type="button" (click)="undo()">Undo</button>
+          <button type="button" (click)="redo()">Redo</button>
+        </div>
+      </div>
     </div>
 
-    <tiptap-editor
-      *ngIf="editor"
-      [editor]="editor"
-      [(ngModel)]="content"
-      class="editor-host"
-    ></tiptap-editor>
+    <div class="col-12 mt-1 ms-1">
+      <tiptap-editor
+        *ngIf="editor"
+        [editor]="editor"
+        [(ngModel)]="content"
+        class="editor-host"
+      ></tiptap-editor>
+    </div>
   </div>
 
   <div class="html-pane">
