@@ -10,6 +10,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
+import TextStyle from '@tiptap/extension-text-style';
+import FontFamily from '@tiptap/extension-font-family';
+import Color from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
+import FontSize from './extentions/font-size/font-size-extension';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
 import TextAlignExtension, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
@@ -39,6 +44,34 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
   readonly textDirection: TextDirection[] = ['rtl', 'ltr'];
   readonly defaultTextDirection: TextDirection = 'rtl';
 
+  readonly fontFamilies = [
+    { name: 'Default', value: '' },
+    { name: 'Arial', value: 'Arial, sans-serif' },
+    { name: 'Times New Roman', value: 'Times New Roman, serif' },
+    { name: 'Courier New', value: 'Courier New, monospace' },
+    { name: 'Georgia', value: 'Georgia, serif' },
+    { name: 'Verdana', value: 'Verdana, sans-serif' },
+  ];
+
+  readonly colors = [
+    '#000000', '#FF0000', '#00FF00', '#0000FF',
+    '#FFFF00', '#FF00FF', '#00FFFF', '#FFA500',
+    '#800080', '#008000', '#808080', '#FFC0CB',
+  ];
+
+  readonly highlightColors = [
+    'transparent', '#FFFF00', '#00FF00', '#00FFFF',
+    '#FF00FF', '#FFA500', '#FFB6C1', '#90EE90',
+  ];
+
+  readonly fontSizes = [
+    { name: 'Small', value: '12px' },
+    { name: 'Normal', value: '16px' },
+    { name: 'Large', value: '20px' },
+    { name: 'X-Large', value: '24px' },
+    { name: 'XX-Large', value: '32px' },
+  ];
+
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -47,6 +80,19 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
         StarterKit.configure({
           bulletList: { keepMarks: true },
           orderedList: { keepMarks: true },
+        }),
+        TextStyle,
+        FontFamily.configure({
+          types: ['textStyle'],
+        }),
+        FontSize.configure({
+          types: ['textStyle'],
+        }),
+        Color.configure({
+          types: ['textStyle'],
+        }),
+        Highlight.configure({
+          multicolor: true,
         }),
         TextAlignExtension,
         TextDirectionExtension,
@@ -136,6 +182,51 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
 
   setTextDirection(direction: TextDirection): void {
     this.editor?.chain().focus().setTextDirection(direction).run();
+  }
+
+  setFontFamily(fontFamily: string): void {
+    if (fontFamily === '') {
+      this.editor?.chain().focus().unsetFontFamily().run();
+    } else {
+      this.editor?.chain().focus().setFontFamily(fontFamily).run();
+    }
+  }
+
+  setTextColor(color: string): void {
+    this.editor?.chain().focus().setColor(color).run();
+  }
+
+  setHighlightColor(color: string): void {
+    if (color === 'transparent') {
+      this.editor?.chain().focus().unsetHighlight().run();
+    } else {
+      this.editor?.chain().focus().setHighlight({ color }).run();
+    }
+  }
+
+  getCurrentFontFamily(): string {
+    return this.editor?.getAttributes('textStyle')['fontFamily'] as string || '';
+  }
+
+  getCurrentTextColor(): string {
+    return this.editor?.getAttributes('textStyle')['color'] as string || '#000000';
+  }
+
+  getCurrentHighlightColor(): string {
+    const highlightAttrs = this.editor?.getAttributes('highlight');
+    return (highlightAttrs?.['color'] as string) || 'transparent';
+  }
+
+  setFontSize(size: string): void {
+    if (size === '') {
+      this.editor?.chain().focus().unsetFontSize().run();
+    } else {
+      this.editor?.chain().focus().setFontSize(size).run();
+    }
+  }
+
+  getCurrentFontSize(): string {
+    return this.editor?.getAttributes('textStyle')['fontSize'] as string || '16px';
   }
 
   isDirectionActive(direction: TextDirection): boolean {

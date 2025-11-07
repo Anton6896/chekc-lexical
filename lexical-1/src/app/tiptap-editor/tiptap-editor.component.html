@@ -85,6 +85,77 @@
 
           <span class="toolbar-separator">|</span>
 
+          <!-- Font Family -->
+          <select
+            class="toolbar-select"
+            [value]="getCurrentFontFamily()"
+            (change)="setFontFamily($any($event.target).value)"
+            title="Font Family"
+          >
+            <option *ngFor="let font of fontFamilies" [value]="font.value">
+              {{ font.name }}
+            </option>
+          </select>
+
+          <!-- Font Size -->
+          <select
+            class="toolbar-select"
+            [value]="getCurrentFontSize()"
+            (change)="setFontSize($any($event.target).value)"
+            title="Font Size"
+          >
+            <option *ngFor="let size of fontSizes" [value]="size.value">
+              {{ size.name }}
+            </option>
+          </select>
+
+          <span class="toolbar-separator">|</span>
+
+          <!-- Text Color -->
+          <div class="color-picker-wrapper">
+            <button
+              type="button"
+              class="toolbar-btn color-btn"
+              title="Text Color"
+            >
+              <i class="fas fa-font"></i>
+              <input
+                type="color"
+                class="color-input"
+                [value]="getCurrentTextColor()"
+                (input)="setTextColor($any($event.target).value)"
+              />
+            </button>
+          </div>
+
+          <!-- Highlight Color -->
+          <div class="color-picker-wrapper">
+            <button
+              type="button"
+              class="toolbar-btn color-btn"
+              title="Highlight Color"
+            >
+              <i class="fas fa-highlighter"></i>
+              <input
+                type="color"
+                class="color-input"
+                [value]="getCurrentHighlightColor() === 'transparent' ? '#FFFF00' : getCurrentHighlightColor()"
+                (input)="setHighlightColor($any($event.target).value)"
+              />
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="setHighlightColor('transparent')"
+            title="Remove Highlight"
+          >
+            <i class="fas fa-eraser"></i>
+          </button>
+
+          <span class="toolbar-separator">|</span>
+
           <!-- Lists and Blocks -->
           <button
             type="button"
