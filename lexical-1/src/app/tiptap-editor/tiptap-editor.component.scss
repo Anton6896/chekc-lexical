@@ -123,10 +123,32 @@
   cursor: pointer;
 }
 
-.editor-host {
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+.editor-wrapper {
+  border: 3px solid #94a3b8;
+  border-radius: 12px;
   overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  padding: 2px;
+
+  &:hover {
+    border-color: #64748b;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  &:focus-within {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15), 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+.editor-host {
+  display: block;
+  border: none;
+  background-color: #ffffff;
 }
 
 .tiptap-editor {
@@ -135,6 +157,20 @@
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
+  background-color: #ffffff;
+  outline: none;
+  cursor: text;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:empty:before {
+    content: 'Start typing...';
+    color: #94a3b8;
+    pointer-events: none;
+    position: absolute;
+  }
 }
 
 .tiptap-editor h1,
