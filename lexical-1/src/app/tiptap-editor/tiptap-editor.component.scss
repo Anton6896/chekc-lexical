@@ -291,6 +291,21 @@
   margin: 0 0.1rem;
 }
 
+.placeholder-token {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Fira Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 0.85em;
+  padding: 0.1rem 0.4rem;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  border-radius: 999px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: default;
+}
+
 .html-container {
   background-color: #0f172a;
   border-radius: 8px;

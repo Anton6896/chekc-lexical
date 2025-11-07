@@ -331,6 +331,14 @@
           <button
             type="button"
             class="toolbar-btn"
+            (click)="insertPlaceholderToken()"
+            title="Insert Placeholder Token"
+          >
+            <i class="fas fa-tag"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
             (click)="insertImage()"
             title="Insert Image"
           >
@@ -392,6 +400,7 @@
           *ngIf="editor"
           class="bubble-menu"
           [editor]="editor"
+          [shouldShow]="bubbleMenuShouldShow"
           [tippyOptions]="{
             placement: 'top',
             duration: 100,
