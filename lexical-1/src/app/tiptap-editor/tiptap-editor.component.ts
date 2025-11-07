@@ -39,7 +39,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
   readonly textDirection: TextDirection[] = ['rtl', 'ltr'];
   readonly defaultTextDirection: TextDirection = 'rtl';
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.editor = new Editor({
@@ -132,6 +132,23 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
 
   setTextAlign(alignment: TextAlign): void {
     this.editor?.chain().focus().setTextAlign(alignment).run();
+  }
+
+  setTextDirection(direction: TextDirection): void {
+    this.editor?.chain().focus().setTextDirection(direction).run();
+  }
+
+  isDirectionActive(direction: TextDirection): boolean {
+    if (!this.editor) {
+      return false;
+    }
+
+    const paragraphDir = this.editor.getAttributes('paragraph')['textDirection'] as TextDirection | null;
+    const headingDir = this.editor.getAttributes('heading')['textDirection'] as TextDirection | null;
+    console.log(this.editor.getAttributes('paragraph'));
+    console.log(this.editor.getAttributes('heading'));
+
+    return paragraphDir === direction || headingDir === direction;
   }
 
   isAlignmentActive(alignment: TextAlign): boolean {

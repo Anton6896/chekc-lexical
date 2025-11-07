@@ -165,6 +165,29 @@
 
           <span class="toolbar-separator">|</span>
 
+          <!-- [class.active]="isAlignmentActive('justify')" -->
+          <button
+            type="button"
+            class="toolbar-btn"
+            [class.active]="isDirectionActive('ltr')"
+            (click)="setTextDirection('ltr')"
+            title="Justify"
+          >
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <button
+            type="button"
+            class="toolbar-btn"
+            [class.active]="isDirectionActive('rtl')"
+            (click)="setTextDirection('rtl')"
+            title="Justify"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+
+          <span class="toolbar-separator">|</span>
+
           <!-- Actions -->
           <button
             type="button"
