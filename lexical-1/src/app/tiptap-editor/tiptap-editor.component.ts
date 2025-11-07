@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -38,6 +39,8 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
   readonly textDirection: TextDirection[] = ['rtl', 'ltr'];
   readonly defaultTextDirection: TextDirection = 'rtl';
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.editor = new Editor({
       extensions: [
@@ -52,6 +55,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
       onUpdate: ({ editor }) => {
         this.htmlOutput = editor.getHTML();
         this.content = this.htmlOutput;
+        this.cdr.markForCheck();
       },
       editorProps: {
         attributes: {
