@@ -34,7 +34,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/@fontsource/material-symbols-outlined/index.css",
-              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css"
+              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
@@ -95,7 +96,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/@fontsource/material-symbols-outlined/index.css",
-              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css"
+              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           }

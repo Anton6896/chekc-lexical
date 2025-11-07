@@ -5,123 +5,207 @@
         <h2>Tiptap Rich Text Editor</h2>
 
         <div class="toolbar" *ngIf="editor">
+          <!-- Text Styles -->
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('paragraph')"
             (click)="toggleParagraph()"
+            title="Paragraph"
           >
-            Text
+            <i class="fas fa-paragraph"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('heading', { level: 1 })"
             (click)="toggleHeading(1)"
+            title="Heading 1"
           >
-            H1
+            <i class="fas fa-heading"></i> 1
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('heading', { level: 2 })"
             (click)="toggleHeading(2)"
+            title="Heading 2"
           >
-            H2
+            <i class="fas fa-heading"></i> 2
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('heading', { level: 3 })"
             (click)="toggleHeading(3)"
+            title="Heading 3"
           >
-            H3
+            <i class="fas fa-heading"></i> 3
           </button>
+
+          <span class="toolbar-separator">|</span>
+
+          <!-- Text Formatting -->
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('bold')"
             (click)="toggleBold()"
+            title="Bold"
           >
-            Bold
+            <i class="fas fa-bold"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('italic')"
             (click)="toggleItalic()"
+            title="Italic"
           >
-            Italic
+            <i class="fas fa-italic"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('strike')"
             (click)="toggleStrike()"
+            title="Strikethrough"
           >
-            Strike
+            <i class="fas fa-strikethrough"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('code')"
             (click)="toggleCode()"
+            title="Inline Code"
           >
-            Code
+            <i class="fas fa-code"></i>
           </button>
+
+          <span class="toolbar-separator">|</span>
+
+          <!-- Lists and Blocks -->
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('bulletList')"
             (click)="toggleBulletList()"
+            title="Bullet List"
           >
-            Bullet List
+            <i class="fas fa-list-ul"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('orderedList')"
             (click)="toggleOrderedList()"
+            title="Numbered List"
           >
-            Ordered List
+            <i class="fas fa-list-ol"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('blockquote')"
             (click)="toggleBlockquote()"
+            title="Quote"
           >
-            Quote
+            <i class="fas fa-quote-left"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isActive('codeBlock')"
             (click)="toggleCodeBlock()"
+            title="Code Block"
           >
-            Code Block
+            <i class="fas fa-file-code"></i>
           </button>
+
+          <span class="toolbar-separator">|</span>
+
+          <!-- Alignment -->
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isAlignmentActive('left')"
             (click)="setTextAlign('left')"
+            title="Align Left"
           >
-            Align Left
+            <i class="fas fa-align-left"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isAlignmentActive('center')"
             (click)="setTextAlign('center')"
+            title="Align Center"
           >
-            Align Center
+            <i class="fas fa-align-center"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isAlignmentActive('right')"
             (click)="setTextAlign('right')"
+            title="Align Right"
           >
-            Align Right
+            <i class="fas fa-align-right"></i>
           </button>
           <button
             type="button"
+            class="toolbar-btn"
             [class.active]="isAlignmentActive('justify')"
             (click)="setTextAlign('justify')"
+            title="Justify"
           >
-            Justify
+            <i class="fas fa-align-justify"></i>
           </button>
-          <button type="button" (click)="insertHorizontalRule()">HR</button>
-          <button type="button" (click)="insertHardBreak()">Line Break</button>
-          <button type="button" (click)="clearFormatting()">Clear</button>
-          <button type="button" (click)="undo()">Undo</button>
-          <button type="button" (click)="redo()">Redo</button>
+
+          <span class="toolbar-separator">|</span>
+
+          <!-- Actions -->
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="insertHorizontalRule()"
+            title="Horizontal Rule"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="insertHardBreak()"
+            title="Line Break"
+          >
+            <i class="fas fa-level-down-alt"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="clearFormatting()"
+            title="Clear Formatting"
+          >
+            <i class="fas fa-eraser"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="undo()"
+            title="Undo"
+          >
+            <i class="fas fa-undo"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="redo()"
+            title="Redo"
+          >
+            <i class="fas fa-redo"></i>
+          </button>
         </div>
       </div>
     </div>

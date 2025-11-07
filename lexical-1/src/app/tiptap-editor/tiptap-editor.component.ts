@@ -12,8 +12,8 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
-import TextAliginExtention, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
-import TextDirectionExtension, { type TextDirection } from './extentions/text-direction';
+import TextAlignExtension, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
+import TextDirectionExtension, { type TextDirection } from './extentions/text-direction/text-direction-extention';
 
 @Component({
   selector: 'app-tiptap-editor',
@@ -48,7 +48,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
           bulletList: { keepMarks: true },
           orderedList: { keepMarks: true },
         }),
-        TextAliginExtention,
+        TextAlignExtension,
         TextDirectionExtension,
       ],
       content: this.content,
