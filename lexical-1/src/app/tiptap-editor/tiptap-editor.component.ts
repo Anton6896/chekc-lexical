@@ -461,6 +461,27 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
     this.editor?.chain().focus().insertPlaceholderToken(token.trim()).run();
   }
 
+  copyHtmlOutput(): void {
+    if (!this.htmlOutput) {
+      return;
+    }
+
+    navigator.clipboard?.writeText(this.htmlOutput).catch(() => {
+      // Fallback: create temporary textarea
+      const textarea = document.createElement('textarea');
+      textarea.value = this.htmlOutput;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    });
+  }
+
   // Table methods
   insertTable(): void {
     this.editor?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();

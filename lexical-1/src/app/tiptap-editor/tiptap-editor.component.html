@@ -474,6 +474,14 @@
 
   <div class="html-pane">
     <h3>HTML Output</h3>
+    <button
+      type="button"
+      class="copy-html-btn"
+      (click)="copyHtmlOutput()"
+    >
+      <i class="fas fa-copy"></i>
+      Copy HTML
+    </button>
     <div class="html-container">
       <pre><code>{{ htmlOutput }}</code></pre>
     </div>
