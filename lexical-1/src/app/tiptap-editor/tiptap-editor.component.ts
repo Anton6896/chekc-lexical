@@ -139,11 +139,11 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const paragraphAlign =
-      (this.editor.getAttributes('paragraph')['textAlign'] as TextAlign | null) ?? this.defaultAlignment;
-    const headingAlign =
-      (this.editor.getAttributes('heading')['textAlign'] as TextAlign | null) ?? this.defaultAlignment;
+    const paragraphAlign = this.editor.getAttributes('paragraph')['textAlign'] as TextAlign | null;
+    const headingAlign = this.editor.getAttributes('heading')['textAlign'] as TextAlign | null;
 
+    // Only show as active if explicitly set to this alignment
+    // If no alignment is set (null), none should be active
     return paragraphAlign === alignment || headingAlign === alignment;
   }
 
