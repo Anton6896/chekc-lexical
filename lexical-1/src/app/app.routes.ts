@@ -4,16 +4,8 @@ import { TiptapEditorComponent } from './tiptap-editor/tiptap-editor.component';
 import { FlogeezTiptapEditorComponent } from './flogeez-tiptap-editor/flogeez-tiptap-editor.component';
 
 export const routes: Routes = [
-  {
-    path: 'lexical',
-    component: LexicalEditorComponent
-  },
-  {
-    path: 'tiptap',
-    component: TiptapEditorComponent
-  },
-  {
-    path: 'flogeez',
-    component: FlogeezTiptapEditorComponent
-  }
+  { path: 'lexical', component: LexicalEditorComponent },
+  { path: 'tiptap', component: TiptapEditorComponent },
+  { path: 'flogeez', component: FlogeezTiptapEditorComponent },
+  { path: '**', component: LexicalEditorComponent }
 ];
