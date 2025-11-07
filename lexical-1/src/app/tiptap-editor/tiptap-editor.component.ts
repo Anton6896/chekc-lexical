@@ -20,6 +20,9 @@ import type { Level } from '@tiptap/extension-heading';
 import TextAlignExtension, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
 import TextDirectionExtension, { type TextDirection } from './extentions/text-direction/text-direction-extention';
 
+
+const sampleText = `<h3 style="text-align: center;">Lorem ipsum dolor sit amet,</h3><p> consectetur adipiscing elit. Aliquam odio nibh, accumsan eget semper ac, tempor pulvinar risus. Proin nibh dolor, commodo sit amet tincidunt at, pretium ac erat. Donec congue lorem sem, tincidunt maximus lorem iaculis pharetra. Curabitur eget dictum ligula. Maecenas a rutrum dui, sit amet suscipit dui. Nam ut velit rhoncus ligula </p><ul><li><p><span style="color: rgb(223, 42, 42);">fringilla sagittis vitae sit amet lorem. </span></p></li><li><p><mark data-color="#f2f25a" style="background-color: rgb(242, 242, 90); color: inherit;">Suspendisse efficitur placerat est eu porta. </mark></p></li><li><p><span style="font-family: &quot;Times New Roman&quot;, serif;">Nulla non mauris sit amet justo tristique aliquam. Integer sed orci eu ipsum sagittis elementum ut id enim. Donec posuere enim a interdum gravida. Quisque eu turpis vitae dui blandit facilisis. Nullam sollicitudin fermentum commodo.</span><br></p></li></ul><p><span style="font-family: Georgia, serif;">Maecenas feugiat et ipsum et tempor. Nulla dictum euismod ligula, vel cursus dolor sollicitudin eget. Morbi risus urna, congue et lorem vitae, vehicula tristique mauris. Nullam felis massa, gravida a tempor vitae, faucibus ac est. Curabitur congue, felis a placerat blandit, eros orci ornare sapien, ac luctus mauris sapien vel quam. Donec non faucibus magna. Vivamus a nisi ullamcorper, scelerisque turpis vitae, ultrices libero. Aliquam posuere nisl nec lacinia vestibulum. Sed sit amet purus in nunc sollicitudin condimentum. Aliquam id purus volutpat, porta mi sit amet, dignissim orci. Duis ut nunc nisl. Morbi nec libero gravida, venenatis augue eu, semper enim.</span></p>`;
+
 @Component({
   selector: 'app-tiptap-editor',
   standalone: true,
@@ -36,7 +39,7 @@ import TextDirectionExtension, { type TextDirection } from './extentions/text-di
 export class TiptapEditorComponent implements OnInit, OnDestroy {
   editor!: Editor;
 
-  content = '<p>Hello, Tiptap!</p>';
+  content = sampleText;
   htmlOutput = this.content;
   readonly alignments: TextAlign[] = ['left', 'center', 'right', 'justify'];
   readonly defaultAlignment: TextAlign = 'left';
