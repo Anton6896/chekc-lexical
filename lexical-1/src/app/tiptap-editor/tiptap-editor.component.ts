@@ -20,7 +20,7 @@ import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import FontSize from './extentions/font-size/font-size-extension';
-import { TiptapEditorDirective } from 'ngx-tiptap';
+import { TiptapBubbleMenuDirective, TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
 import TextAlignExtension, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
 import TextDirectionExtension, { type TextDirection } from './extentions/text-direction/text-direction-extention';
@@ -35,6 +35,7 @@ const sampleText = `<h3 style="text-align: center;">Lorem ipsum dolor sit amet,<
     CommonModule,
     FormsModule,
     TiptapEditorDirective,
+    TiptapBubbleMenuDirective,
   ],
   templateUrl: './tiptap-editor.component.html',
   styleUrls: ['./tiptap-editor.component.scss'],

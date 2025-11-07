@@ -251,6 +251,46 @@
   }
 }
 
+.bubble-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 999px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+  color: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.bubble-menu-btn {
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(15, 23, 42, 0.08);
+  }
+
+  &.active {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+}
+
+.bubble-menu-separator {
+  width: 1px;
+  height: 18px;
+  background-color: rgba(15, 23, 42, 0.12);
+  display: inline-block;
+  margin: 0 0.1rem;
+}
+
 .html-container {
   background-color: #0f172a;
   border-radius: 8px;

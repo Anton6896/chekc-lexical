@@ -387,6 +387,64 @@
           [editor]="editor"
           class="editor-host"
         ></tiptap-editor>
+
+        <tiptap-bubble-menu
+          *ngIf="editor"
+          class="bubble-menu"
+          [editor]="editor"
+          [tippyOptions]="{
+            placement: 'top',
+            duration: 100,
+            animation: 'shift-away'
+          }"
+        >
+          <button
+            type="button"
+            class="bubble-menu-btn"
+            [class.active]="isActive('bold')"
+            (click)="toggleBold()"
+            aria-label="Bold"
+          >
+            <i class="fas fa-bold"></i>
+          </button>
+          <button
+            type="button"
+            class="bubble-menu-btn"
+            [class.active]="isActive('italic')"
+            (click)="toggleItalic()"
+            aria-label="Italic"
+          >
+            <i class="fas fa-italic"></i>
+          </button>
+          <button
+            type="button"
+            class="bubble-menu-btn"
+            [class.active]="isActive('strike')"
+            (click)="toggleStrike()"
+            aria-label="Strikethrough"
+          >
+            <i class="fas fa-strikethrough"></i>
+          </button>
+          <span class="bubble-menu-separator"></span>
+          <button
+            type="button"
+            class="bubble-menu-btn"
+            [class.active]="isActive('code')"
+            (click)="toggleCode()"
+            aria-label="Inline code"
+          >
+            <i class="fas fa-code"></i>
+          </button>
+          <button
+            type="button"
+            class="bubble-menu-btn"
+            [class.active]="isActive('blockquote')"
+            (click)="toggleBlockquote()"
+            aria-label="Quote"
+          >
+            <i class="fas fa-quote-left"></i>
+          </button>
+        </tiptap-bubble-menu>
       </div>
     </div>
   </div>
