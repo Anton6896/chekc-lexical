@@ -12,6 +12,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
 import TextAliginExtention, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
+import TextDirectionExtension, { type TextDirection } from './extentions/text-direction';
 
 @Component({
   selector: 'app-tiptap-editor',
@@ -34,6 +35,9 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
   readonly alignments: TextAlign[] = ['left', 'center', 'right', 'justify'];
   readonly defaultAlignment: TextAlign = 'left';
 
+  readonly textDirection: TextDirection[] = ['rtl', 'ltr'];
+  readonly defaultTextDirection: TextDirection = 'rtl';
+
   ngOnInit(): void {
     this.editor = new Editor({
       extensions: [
@@ -42,6 +46,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
           orderedList: { keepMarks: true },
         }),
         TextAliginExtention,
+        TextDirectionExtension,
       ],
       content: this.content,
       onUpdate: ({ editor }) => {
