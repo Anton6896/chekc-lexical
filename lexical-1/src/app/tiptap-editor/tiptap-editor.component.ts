@@ -14,6 +14,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import FontFamily from '@tiptap/extension-font-family';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
+import Image from '@tiptap/extension-image';
 import FontSize from './extentions/font-size/font-size-extension';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
@@ -96,6 +97,10 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
         }),
         Highlight.configure({
           multicolor: true,
+        }),
+        Image.configure({
+          inline: true,
+          allowBase64: true,
         }),
         TextAlignExtension,
         TextDirectionExtension,
@@ -260,6 +265,26 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
 
   isActive(name: string, attrs?: Record<string, unknown>): boolean {
     return !!this.editor?.isActive(name, attrs);
+  }
+
+  insertImage(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = (event: Event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const base64 = e.target?.result as string;
+          this.editor?.chain().focus().setImage({ src: base64 }).run();
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    input.click();
   }
 
   ngOnDestroy(): void {

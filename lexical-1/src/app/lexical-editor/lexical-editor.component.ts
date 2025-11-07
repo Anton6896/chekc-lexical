@@ -12,11 +12,11 @@ import {
   TextFormatType,
   $isTextNode
 } from 'lexical';
-import { $getRoot, $createParagraphNode, $createTextNode } from 'lexical';
+import { $getRoot } from 'lexical';
 import { registerRichText } from '@lexical/rich-text';
 import { registerHistory, createEmptyHistoryState } from '@lexical/history';
 import { registerList } from '@lexical/list';
-import { $generateHtmlFromNodes } from '@lexical/html';
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
@@ -28,6 +28,8 @@ import { applyTextAlignment, getCurrentTextAlignment, TextAlignment } from './pl
 import { applyTextDirection, getCurrentTextDirection, TextDirection } from './plugins/text-direction-plugin';
 import { clearAllFormatting } from './plugins/clear-formatting-plugin';
 import { toggleBulletList, toggleNumberedList, getCurrentListType, ListType } from './plugins/list-plugin';
+
+const sampleText = `<h3 style="text-align: center;">Lorem ipsum dolor sit amet,</h3><p> consectetur adipiscing elit. Aliquam odio nibh, accumsan eget semper ac, tempor pulvinar risus. Proin nibh dolor, commodo sit amet tincidunt at, pretium ac erat. Donec congue lorem sem, tincidunt maximus lorem iaculis pharetra. Curabitur eget dictum ligula. Maecenas a rutrum dui, sit amet suscipit dui. Nam ut velit rhoncus ligula </p><ul><li><p><span style="color: rgb(223, 42, 42);">fringilla sagittis vitae sit amet lorem. </span></p></li><li><p><mark data-color="#f2f25a" style="background-color: rgb(242, 242, 90); color: inherit;">Suspendisse efficitur placerat est eu porta. </mark></p></li><li><p><span style="font-family: &quot;Times New Roman&quot;, serif;">Nulla non mauris sit amet justo tristique aliquam. Integer sed orci eu ipsum sagittis elementum ut id enim. Donec posuere enim a interdum gravida. Quisque eu turpis vitae dui blandit facilisis. Nullam sollicitudin fermentum commodo.</span><br></p></li></ul><p><span style="font-family: Georgia, serif;">Maecenas feugiat et ipsum et tempor. Nulla dictum euismod ligula, vel cursus dolor sollicitudin eget. Morbi risus urna, congue et lorem vitae, vehicula tristique mauris. Nullam felis massa, gravida a tempor vitae, faucibus ac est. Curabitur congue, felis a placerat blandit, eros orci ornare sapien, ac luctus mauris sapien vel quam. Donec non faucibus magna. Vivamus a nisi ullamcorper, scelerisque turpis vitae, ultrices libero. Aliquam posuere nisl nec lacinia vestibulum. Sed sit amet purus in nunc sollicitudin condimentum. Aliquam id purus volutpat, porta mi sit amet, dignissim orci. Duis ut nunc nisl. Morbi nec libero gravida, venenatis augue eu, semper enim.</span></p>`;
 
 @Component({
   selector: 'app-lexical-editor',
@@ -192,13 +194,19 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
       this.log(editorState);
     });
 
-    // Set initial content
+    // Set initial content from sampleText HTML
     this.editor.update(() => {
       const root = $getRoot();
       if (root.getFirstChild() === null) {
-        const paragraph = $createParagraphNode();
-        paragraph.append($createTextNode('some default text loaded'));
-        root.append(paragraph);
+        // Parse the HTML string into DOM nodes
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(sampleText, 'text/html');
+
+        // Generate Lexical nodes from the DOM
+        const nodes = $generateNodesFromDOM(this.editor!, dom);
+
+        // Append the nodes to the root
+        root.append(...nodes);
       }
     });
   }
@@ -319,6 +327,7 @@ export class LexicalEditorComponent implements AfterViewInit, OnDestroy {
 
       // Get HTML representation
       this.htmlRepresentation = $generateHtmlFromNodes(this.editor!);
+      
 
       console.log('Editor content:', textContent);
       console.log('HTML output:', this.htmlRepresentation);
