@@ -114,6 +114,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
         }),
         Table.configure({
           resizable: true,
+          HTMLAttributes: { class: 'cs-4-custom-table-class' },
         }),
         TableRow,
         TableHeader,
