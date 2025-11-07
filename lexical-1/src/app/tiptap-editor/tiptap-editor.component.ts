@@ -15,6 +15,10 @@ import FontFamily from '@tiptap/extension-font-family';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
 import FontSize from './extentions/font-size/font-size-extension';
 import { TiptapEditorDirective } from 'ngx-tiptap';
 import type { Level } from '@tiptap/extension-heading';
@@ -107,6 +111,12 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
           inline: true,
           allowBase64: true,
         }),
+        Table.configure({
+          resizable: true,
+        }),
+        TableRow,
+        TableHeader,
+        TableCell,
         TextAlignExtension,
         TextDirectionExtension,
       ],
@@ -413,6 +423,59 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
     };
 
     input.click();
+  }
+
+  // Table methods
+  insertTable(): void {
+    this.editor?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+  }
+
+  addColumnBefore(): void {
+    this.editor?.chain().focus().addColumnBefore().run();
+  }
+
+  addColumnAfter(): void {
+    this.editor?.chain().focus().addColumnAfter().run();
+  }
+
+  deleteColumn(): void {
+    this.editor?.chain().focus().deleteColumn().run();
+  }
+
+  addRowBefore(): void {
+    this.editor?.chain().focus().addRowBefore().run();
+  }
+
+  addRowAfter(): void {
+    this.editor?.chain().focus().addRowAfter().run();
+  }
+
+  deleteRow(): void {
+    this.editor?.chain().focus().deleteRow().run();
+  }
+
+  deleteTable(): void {
+    this.editor?.chain().focus().deleteTable().run();
+  }
+
+  mergeCells(): void {
+    this.editor?.chain().focus().mergeCells().run();
+  }
+
+  splitCell(): void {
+    this.editor?.chain().focus().splitCell().run();
+  }
+
+  toggleHeaderColumn(): void {
+    this.editor?.chain().focus().toggleHeaderColumn().run();
+  }
+
+  toggleHeaderRow(): void {
+    this.editor?.chain().focus().toggleHeaderRow().run();
+  }
+
+  toggleHeaderCell(): void {
+    this.editor?.chain().focus().toggleHeaderCell().run();
   }
 
   ngOnDestroy(): void {

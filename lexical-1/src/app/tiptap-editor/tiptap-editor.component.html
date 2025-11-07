@@ -259,6 +259,74 @@
 
           <span class="toolbar-separator">|</span>
 
+          <!-- Table -->
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="insertTable()"
+            title="Insert Table"
+          >
+            <i class="fas fa-table"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="addRowBefore()"
+            title="Add Row Before"
+          >
+            <i class="fas fa-plus"></i> <i class="fas fa-arrows-alt-v"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="addColumnAfter()"
+            title="Add Column After"
+          >
+            <i class="fas fa-plus"></i> <i class="fas fa-arrows-alt-h"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="deleteRow()"
+            title="Delete Row"
+          >
+            <i class="fas fa-trash"></i> <i class="fas fa-arrows-alt-v"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="deleteColumn()"
+            title="Delete Column"
+          >
+            <i class="fas fa-trash"></i> <i class="fas fa-arrows-alt-h"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="deleteTable()"
+            title="Delete Table"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="mergeCells()"
+            title="Merge Cells"
+          >
+            <i class="fas fa-compress-alt"></i>
+          </button>
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="splitCell()"
+            title="Split Cell"
+          >
+            <i class="fas fa-expand-alt"></i>
+          </button>
+
+          <span class="toolbar-separator">|</span>
+
           <!-- Actions -->
           <button
             type="button"
