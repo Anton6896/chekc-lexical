@@ -88,7 +88,7 @@
           <!-- Font Family -->
           <select
             class="toolbar-select"
-            [value]="getCurrentFontFamily()"
+            [value]="currentFontFamily"
             (change)="setFontFamily($any($event.target).value)"
             title="Font Family"
           >
@@ -100,7 +100,7 @@
           <!-- Font Size -->
           <select
             class="toolbar-select"
-            [value]="getCurrentFontSize()"
+            [value]="currentFontSize"
             (change)="setFontSize($any($event.target).value)"
             title="Font Size"
           >
@@ -122,7 +122,7 @@
               <input
                 type="color"
                 class="color-input"
-                [value]="getCurrentTextColor()"
+                [value]="currentTextColor"
                 (input)="setTextColor($any($event.target).value)"
               />
             </button>
@@ -139,7 +139,7 @@
               <input
                 type="color"
                 class="color-input"
-                [value]="getCurrentHighlightColor() === 'transparent' ? '#FFFF00' : getCurrentHighlightColor()"
+                [value]="currentHighlightColor === 'transparent' ? '#FFFF00' : currentHighlightColor"
                 (input)="setHighlightColor($any($event.target).value)"
               />
             </button>
