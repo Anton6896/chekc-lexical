@@ -139,7 +139,11 @@
               <input
                 type="color"
                 class="color-input"
-                [value]="currentHighlightColor === 'transparent' ? '#FFFF00' : currentHighlightColor"
+                [value]="
+                  currentHighlightColor === 'transparent'
+                    ? '#FFFF00'
+                    : currentHighlightColor
+                "
                 (input)="setHighlightColor($any($event.target).value)"
               />
             </button>
@@ -331,14 +335,6 @@
           <button
             type="button"
             class="toolbar-btn"
-            (click)="insertPlaceholderToken()"
-            title="Insert Placeholder Token"
-          >
-            <i class="fas fa-tag"></i>
-          </button>
-          <button
-            type="button"
-            class="toolbar-btn"
             (click)="insertImage()"
             title="Insert Image"
           >
@@ -383,6 +379,18 @@
             title="Redo"
           >
             <i class="fas fa-redo"></i>
+          </button>
+
+          <span class="toolbar-separator">|</span>
+
+          <!-- CS4 actions -->
+          <button
+            type="button"
+            class="toolbar-btn"
+            (click)="insertPlaceholderToken()"
+            title="Insert Placeholder Token"
+          >
+            <i class="fas fa-tag"></i>
           </button>
         </div>
       </div>
@@ -474,11 +482,7 @@
 
   <div class="html-pane">
     <h3>HTML Output</h3>
-    <button
-      type="button"
-      class="copy-html-btn"
-      (click)="copyHtmlOutput()"
-    >
+    <button type="button" class="copy-html-btn" (click)="copyHtmlOutput()">
       <i class="fas fa-copy"></i>
       Copy HTML
     </button>
