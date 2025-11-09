@@ -25,6 +25,7 @@ import type { Level } from '@tiptap/extension-heading';
 import TextAlignExtension, { type TextAlign, } from './extentions/tiptap-text-aligin-extension';
 import TextDirectionExtension, { type TextDirection } from './extentions/text-direction/text-direction-extention';
 import PlaceholderExtension from './extentions/placeholder/placeholder-extention';
+import CheckBoxExtension from './extentions/input-checkbox/check-box';
 
 type NgxBubbleMenuShouldShowProps = {
   editor: Editor;
@@ -146,6 +147,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
         TextAlignExtension,
         TextDirectionExtension,
         PlaceholderExtension,
+        CheckBoxExtension
       ],
       content: this.content,
       onUpdate: ({ editor }) => {
@@ -459,6 +461,16 @@ export class TiptapEditorComponent implements OnInit, OnDestroy {
     }
 
     this.editor?.chain().focus().insertPlaceholderToken(token.trim()).run();
+  }
+
+  insertCheckBoxToken(): void {
+    let checkboxId = window.prompt('Enter checkbox id', 'id-placeholder');
+    if (!checkboxId) {
+      checkboxId = 'foobar';
+    }
+    let selected = true;
+
+    this.editor?.chain().focus().insertCheckBoxToken(checkboxId.trim(), selected).run();
   }
 
   copyHtmlOutput(): void {
